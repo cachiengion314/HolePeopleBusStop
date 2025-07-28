@@ -7,7 +7,7 @@ public partial class LevelManager : MonoBehaviour
 
   void Start()
   {
-
+    print("Start!!!");
   }
 
   void SetupCurrentLevel()

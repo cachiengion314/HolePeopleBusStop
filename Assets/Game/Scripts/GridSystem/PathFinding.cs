@@ -11,7 +11,6 @@ public struct GridNode
   public float HCost;
   public float GCost;
   public float FCost { get { return HCost + GCost; } }
-  public int Value;
 }
 
 /// <summary>
@@ -37,7 +36,6 @@ public partial class GridWorld : MonoBehaviour
           Index = index,
           ParentIndex = -1,
           GridPosition = gridPos,
-          Value = GetEmptyValue()
         };
 
         _nodeMap[index] = node;
@@ -61,13 +59,13 @@ public partial class GridWorld : MonoBehaviour
   public NativeList<int2> PathFindingTo(
     in float3 destination,
     in float3 startPos,
-    in int2[] excludes
+    in NativeArray<int2> excludes
   )
   {
     ResetPathFindingNodeData();
 
-    NativeList<GridNode> availableNodes = new(_nodeMap.Length, Allocator.Temp);
-    NativeList<GridNode> visitedNodes = new(_nodeMap.Length, Allocator.Temp);
+    using var availableNodes = new NativeList<GridNode>(_nodeMap.Length, Allocator.Temp);
+    using var visitedNodes = new NativeList<GridNode>(_nodeMap.Length, Allocator.Temp);
 
     if (IsPosOutsideAt(destination)) return new NativeList<int2>(0, Allocator.Temp);
     if (IsPosOutsideAt(startPos)) return new NativeList<int2>(0, Allocator.Temp);
@@ -121,7 +119,6 @@ public partial class GridWorld : MonoBehaviour
           GridPosition = neighbors[i].GridPosition,
           HCost = distanceToDest,
           GCost = currentNode.GCost + distanceFromParent,
-          Value = neighbors[i].Value
         };
         neighbors[i] = _neighbor;
         _nodeMap[_neighbor.Index] = _neighbor;
@@ -133,9 +130,6 @@ public partial class GridWorld : MonoBehaviour
 
       neighbors.Dispose();
     }
-
-    availableNodes.Dispose();
-    visitedNodes.Dispose();
 
     return new NativeList<int2>(0, Allocator.Temp);
   }
@@ -155,7 +149,6 @@ public partial class GridWorld : MonoBehaviour
           GridPosition = gridPos,
           HCost = 0,
           GCost = 0,
-          Value = GetEmptyValue()
         };
 
         _nodeMap[index] = node;
@@ -163,9 +156,9 @@ public partial class GridWorld : MonoBehaviour
     }
   }
 
-  NativeList<int2> FindTracingPathFor(GridNode node)
+  NativeList<int2> FindTracingPathFor(in GridNode node)
   {
-    var maxLength = 64;
+    var maxLength = 1024;
     NativeList<int2> foundList = new(maxLength, Allocator.Temp)
     {
       node.GridPosition
@@ -192,8 +185,13 @@ public partial class GridWorld : MonoBehaviour
     return foundListReserved;
   }
 
-  NativeList<GridNode> FindNeighborNodesFor(in GridNode node, int2[] excludes)
+  NativeList<GridNode> FindNeighborNodesFor(in GridNode node, in NativeArray<int2> excludes)
   {
+    using var directions = new NativeArray<int2>(
+      new int2[] { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) },
+      Allocator.Temp
+    );
+
     NativeList<GridNode> found = new(directions.Length, Allocator.Temp);
 
     for (int i = 0; i < directions.Length; ++i)
@@ -208,8 +206,6 @@ public partial class GridWorld : MonoBehaviour
         found.Add(neighbor);
         continue;
       }
-
-      if (_grid[_index] > GetEmptyValue()) continue;
 
       found.Add(neighbor);
     }

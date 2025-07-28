@@ -1,13 +1,33 @@
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public partial class LevelManager : MonoBehaviour
 {
   public static LevelManager Instance { get; private set; }
+  [SerializeField] GridWorld gridWorld;
 
   void Start()
   {
-    print("Start!!!");
+    gridWorld.BakingGridWorld();
+    gridWorld.BakingPathFinding();
+  }
+
+  void Update()
+  {
+    using var excludes = new NativeArray<int2>(0, Allocator.TempJob);
+    using var path = gridWorld.PathFindingTo(new float3(1, 1, 0), new float3(5, 2, 0), excludes);
+    for (int i = 0; i < path.Length; ++i)
+    {
+      var pos = gridWorld.ConvertGridPosToWorldPos(path[i]);
+      HoangNam.Utility.DrawQuad(pos, .8f, -90, HoangNam.ColorIndex.Green);
+    }
+  }
+
+  void OnDestroy()
+  {
+    gridWorld.DisposePathFinding();
   }
 
   void SetupCurrentLevel()

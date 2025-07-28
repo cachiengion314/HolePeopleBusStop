@@ -1,14 +1,10 @@
 using HoangNam;
-using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
 public partial class GridWorld : MonoBehaviour
 {
   [Header("Setting")]
-  [SerializeField] bool showGridValue;
-  [SerializeField] int smallestPossibleValue;
-  public int SmallestPossibleValue { get { return smallestPossibleValue; } }
   [Range(0, 5)]
   [SerializeField] int colorIndex;
   float3x3 _originalMatrix;
@@ -21,21 +17,7 @@ public partial class GridWorld : MonoBehaviour
   public int2 GridSize { get { return gridSize; } set { gridSize = value; } }
   [SerializeField] float2 scale;
   public float2 Scale { get { return scale; } }
-  NativeArray<int> _grid;
-  public NativeArray<int> Grid
-  {
-    get
-    {
-      return _grid;
-    }
-    set
-    {
-      _grid = value;
-    }
-  }
-
   public float2 Offset { get; private set; }
-  readonly int2[] directions = new int2[] { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) };
 
   private void Update()
   {
@@ -48,14 +30,7 @@ public partial class GridWorld : MonoBehaviour
   {
     _originalMatrix = HoangNam.Utility.GetMatrixWith(0);
     _rotatedMatrix = HoangNam.Utility.GetMatrixWith(degAroundX);
-    _grid = new NativeArray<int>(gridSize.x * gridSize.y, Allocator.Persistent);
     Offset = new Vector2((gridSize.x - 1) / 2f, (gridSize.y - 1) / 2f);
-    for (int i = 0; i < _grid.Length; ++i) _grid[i] = GetEmptyValue();
-  }
-
-  public void DisposeGridWorld()
-  {
-    _grid.Dispose();
   }
 
   public int ConvertGridPosToIndex(in int2 gridPos)
@@ -107,41 +82,6 @@ public partial class GridWorld : MonoBehaviour
     return worldPos;
   }
 
-  public int GetEmptyValue()
-  {
-    return smallestPossibleValue - 1;
-  }
-
-  public int GetValueAt(int index)
-  {
-    if (index < 0) return GetEmptyValue();
-    if (index > _grid.Length - 1) return GetEmptyValue();
-    return _grid[index];
-  }
-
-  public int GetValueAt(float3 worldPos)
-  {
-    var index = ConvertWorldPosToIndex(worldPos);
-    if (index < 0) return GetEmptyValue();
-    if (index > _grid.Length - 1) return GetEmptyValue();
-    return _grid[index];
-  }
-
-  public void SetValueAt(float3 worldPos, int value = 1)
-  {
-    int index = ConvertWorldPosToIndex(worldPos);
-    if (index < 0) return;
-    if (index > _grid.Length - 1) return;
-    _grid[index] = value;
-  }
-
-  public void SetValueAt(int index, int value = 1)
-  {
-    if (index < 0) return;
-    if (index > _grid.Length - 1) return;
-    _grid[index] = value;
-  }
-
   public bool IsPosOutsideAt(float3 worldPos)
   {
     int2 gridPos = ConvertWorldPosToGridPos(worldPos);
@@ -150,40 +90,9 @@ public partial class GridWorld : MonoBehaviour
 
   public bool IsGridPosOutsideAt(int2 gridPos)
   {
-    var emptyValue = GetEmptyValue();
-    var index = ConvertGridPosToIndex(gridPos);
     if (gridPos.x > gridSize.x - 1 || gridPos.x < 0) return true;
     if (gridPos.y > gridSize.y - 1 || gridPos.y < 0) return true;
-    if (_grid[index] == emptyValue - 1) return true;
     return false;
-  }
-
-  public bool IsPosOccupiedAt(float3 worldPos)
-  {
-    int2 gridPos = ConvertWorldPosToGridPos(worldPos);
-    return IsGridPosOccupiedAt(gridPos);
-  }
-
-  public bool IsGridPosOccupiedAt(int2 gridPos)
-  {
-    if (IsGridPosOutsideAt(gridPos)) return true;
-    var index = ConvertGridPosToIndex(gridPos);
-    if (_grid[index] >= smallestPossibleValue) return true;
-    return false;
-  }
-
-  /// <summary>
-  /// Only for debugging
-  /// </summary>
-  void OnDrawGizmos()
-  {
-    if (!showGridValue) return;
-    for (int i = 0; i < _grid.Length; ++i)
-    {
-      var worldPos = ConvertIndexToWorldPos(i);
-      var val = _grid[i];
-      Utility.DrawString(val.ToString(), worldPos, Utility.GetColorFrom((ColorIndex)colorIndex));
-    }
   }
 
   /// <summary>
@@ -191,15 +100,13 @@ public partial class GridWorld : MonoBehaviour
   /// </summary>
   void DrawGrid()
   {
-    if (Grid == null) return;
-
-    for (int i = 0; i < _grid.Length; ++i)
+    for (int x = 0; x < gridSize.x; ++x)
     {
-      var worldPos = ConvertIndexToWorldPos(i);
-      HoangNam.Utility.DrawQuad(worldPos, scale, degAroundX, (ColorIndex)colorIndex);
-      var val = _grid[i];
-      if (val < smallestPossibleValue) continue;
-      HoangNam.Utility.DrawQuad(worldPos, scale * .9f, degAroundX, (ColorIndex)colorIndex);
+      for (int y = 0; y < gridSize.y; ++y)
+      {
+        var worldPos = ConvertGridPosToWorldPos(new int2(x, y));
+        HoangNam.Utility.DrawQuad(worldPos, scale, degAroundX, (ColorIndex)colorIndex);
+      }
     }
   }
 
@@ -215,28 +122,5 @@ public partial class GridWorld : MonoBehaviour
       gridSize.x * scale.x,
       gridSize.y * scale.y
     ));
-  }
-
-  /// <summary>
-  /// return world position of neighbor and float3(-1, -1, -1) for invalid neighbor.
-  /// </summary>
-  /// 
-  public float3[] FindNeighborsAt(float3 worldPos)
-  {
-    float3[] neighbors = new float3[directions.Length];
-    var gridPos = ConvertWorldPosToGridPos(worldPos);
-    for (int i = 0; i < directions.Length; ++i)
-    {
-      var dir = directions[i];
-      var neighbor = gridPos + dir;
-      if (IsGridPosOutsideAt(neighbor))
-      {
-        neighbors[i] = new float3(-1, -1, -1);
-        continue;
-      }
-      float3 wPos = ConvertGridPosToWorldPos(neighbor);
-      neighbors[i] = wPos;
-    }
-    return neighbors;
   }
 }

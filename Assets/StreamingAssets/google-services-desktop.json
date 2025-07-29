@@ -7,29 +7,75 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1031407332260:ios:59b2a97584f9cd46d22f31",
+        "mobilesdk_app_id": "1:1031407332260:android:b20c8505eb59283ed22f31",
         "android_client_info": {
-          "package_name": "com.unbrella.man"
-        }
-      },
-      "api_key": [
-        {
-          "current_key": "AIzaSyBvCTJ7bmBEKZTJdiqPR1qAPY8PA77Hs78"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 0
-        },
-        "appinvite_service": {
-          "status": 1
+          "package_name": "com.test.nam"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1031407332260-cmrqr1mjk22n30m7pv19epgtv1lkbo55.apps.googleusercontent.com"
+          "client_id": "1031407332260-g74og7vemfa3d600in6hs73ob6ecdiq9.apps.googleusercontent.com",
+          "client_type": 3
         }
-      ]
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwMIMQUQfGIpFUd5uj1acCJPBbampavLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031407332260-g74og7vemfa3d600in6hs73ob6ecdiq9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031407332260-cmrqr1mjk22n30m7pv19epgtv1lkbo55.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unbrella.man"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031407332260:android:b589e177358191fed22f31",
+        "android_client_info": {
+          "package_name": "com.umbrella.man"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031407332260-g74og7vemfa3d600in6hs73ob6ecdiq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwMIMQUQfGIpFUd5uj1acCJPBbampavLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031407332260-g74og7vemfa3d600in6hs73ob6ecdiq9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031407332260-cmrqr1mjk22n30m7pv19epgtv1lkbo55.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unbrella.man"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

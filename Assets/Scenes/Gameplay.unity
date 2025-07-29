@@ -2094,6 +2094,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridWorld: {fileID: 1083012360}
+  startPos: {fileID: 0}
+  endPos: {fileID: 0}
 --- !u!4 &229877049
 Transform:
   m_ObjectHideFlags: 0

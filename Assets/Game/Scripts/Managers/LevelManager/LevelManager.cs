@@ -7,6 +7,8 @@ public partial class LevelManager : MonoBehaviour
 {
   public static LevelManager Instance { get; private set; }
   [SerializeField] GridWorld gridWorld;
+  [SerializeField] Transform startPos;
+  [SerializeField] Transform endPos;
 
   void Start()
   {
@@ -17,7 +19,9 @@ public partial class LevelManager : MonoBehaviour
   void Update()
   {
     using var excludes = new NativeArray<int2>(0, Allocator.TempJob);
-    using var path = gridWorld.PathFindingTo(new float3(1, 1, 0), new float3(5, 2, 0), excludes);
+    using var path = gridWorld.PathFindingTo(
+      startPos.position, endPos.position, excludes
+    );
     for (int i = 0; i < path.Length; ++i)
     {
       var pos = gridWorld.ConvertGridPosToWorldPos(path[i]);

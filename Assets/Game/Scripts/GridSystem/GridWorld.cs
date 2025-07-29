@@ -59,7 +59,7 @@ public partial class GridWorld : MonoBehaviour
 
   public int2 ConvertWorldPosToGridPos(in float3 worldPos)
   {
-    var O1A1 = math.mul(worldPos - (float3)transform.position, _originalMatrix);
+    var O1A1 = math.mul(worldPos - (float3)transform.position, math.inverse(_rotatedMatrix));
     var O2A2 = new float2(O1A1.x * 1 / scale.x, O1A1.y * 1 / scale.y);
     var A2 = Offset + new float2(O2A2.x, O2A2.y);
     int xRound = (int)math.round(A2.x);
@@ -116,11 +116,38 @@ public partial class GridWorld : MonoBehaviour
   void OnDrawGizmosSelected()
   {
     var color = HoangNam.Utility.GetColorFrom((ColorIndex)colorIndex);
-    color.a = .35f;
     Gizmos.color = color;
-    Gizmos.DrawCube(transform.position, new Vector2(
-      gridSize.x * scale.x,
-      gridSize.y * scale.y
-    ));
+
+    var centerPos = transform.position;
+    var rotatedMatrix = HoangNam.Utility.GetMatrixWith(degAroundX);
+    var x = gridSize.x * scale.x;
+    var y = gridSize.y * scale.y;
+    var leftDir = new Vector3(-x / 2f, 0, 0);
+    var bottomDir = new Vector3(0, -y / 2f, 0);
+    var rightDir = new Vector3(x / 2f, 0, 0);
+    var topDir = new Vector3(0, y / 2f, 0);
+    Vector3 bottomLeftDir = math.mul(bottomDir + leftDir, rotatedMatrix);
+    Vector3 bottomRightDir = math.mul(bottomDir + rightDir, rotatedMatrix);
+    Vector3 topLeftDir = math.mul(topDir + leftDir, rotatedMatrix);
+    Vector3 topRightDir = math.mul(topDir + rightDir, rotatedMatrix);
+
+    var bottomLeftPos = centerPos + bottomLeftDir;
+    var bottomRightPos = centerPos + bottomRightDir;
+    var topLeftPos = centerPos + topLeftDir;
+    var topRightPos = centerPos + topRightDir;
+
+    var points = new Vector3[8]
+    {
+      bottomLeftPos,
+      bottomRightPos,
+      bottomRightPos,
+      topRightPos,
+      topRightPos,
+      topLeftPos,
+      topLeftPos,
+      bottomLeftPos
+    };
+
+    Gizmos.DrawLineList(points);
   }
 }

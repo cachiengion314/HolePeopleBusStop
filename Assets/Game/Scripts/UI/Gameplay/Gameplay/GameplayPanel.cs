@@ -34,13 +34,12 @@ public partial class GameplayPanel : MonoBehaviour
   }
   private void Start()
   {
-    InitBooster();
     UpdateCoin();
     GameManager.Instance.OnCoinChange += UpdateCoin;
   }
+
   private void OnDestroy()
   {
-    UnsubscribeBoosterEvent();
     GameManager.Instance.OnCoinChange -= UpdateCoin;
   }
 

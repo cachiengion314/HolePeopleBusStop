@@ -4,17 +4,38 @@
         {
             "PercentInX": {
                 "x": 0.0,
-                "y": 100.0
+                "y": 25.0
             },
             "PercentInY": {
                 "x": 0.0,
-                "y": 100.0
+                "y": 25.0
+            },
+            "IsHidden": false,
+            "Value": 0
+        },
+        {
+            "PercentInX": {
+                "x": 50.0,
+                "y": 75.0
+            },
+            "PercentInY": {
+                "x": 50.0,
+                "y": 75.0
             },
             "IsHidden": false,
             "Value": 0
         }
     ],
-    "HolePartitionDatas": [],
+    "HoleDatas": [
+        {
+            "Index": 0,
+            "Value": 0
+        },
+        {
+            "Index": 1,
+            "Value": 0
+        }
+    ],
     "GridPosition": {
         "x": 0.0,
         "y": 0.0,
@@ -22,10 +43,14 @@
     },
     "GridSize": {
         "x": 12,
-        "y": 12
+        "y": 24
     },
     "GridScale": {
         "x": 1.0,
         "y": 1.0
+    },
+    "HoleSize": {
+        "x": 4,
+        "y": 4
     }
 }

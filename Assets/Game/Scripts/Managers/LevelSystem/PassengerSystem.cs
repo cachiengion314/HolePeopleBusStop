@@ -7,6 +7,6 @@ public partial class LevelSystem : MonoBehaviour
 
   void InitPassengers()
   {
-    _passengers = new GameObject[gridWorld.GridSize.x * gridWorld.GridSize.y];
+    _passengers = new GameObject[passengerGrid.GridSize.x * passengerGrid.GridSize.y];
   }
 }

@@ -3,10 +3,16 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
-public class PartitionData
+public class LevelHoleData
 {
-  public float2 PercentInX;
-  public float2 PercentInY;
+  public int Index;
+  public int Value;
+}
+
+[Serializable]
+public class GroupPassengerData
+{
+  public int Index;
   public bool IsHidden;
   public int Value;
 }
@@ -15,18 +21,12 @@ public class PartitionData
 public class LevelInformation
 {
   [ViewOnly] public int Index;
-  /// <summary>
-  /// example
-  /// item_0: partition of x: (0, 50), partition of y: (0, 50)
-  /// item_1: partition of x: (50, 100), partition of y: (0, 50)
-  /// item_2: partition of x: (0, 100), partition of y: (50, 100)
-  /// item_3: partition of x: (50, 100), partition of y: (50, 100)
-  /// </summary>
-  public PartitionData[] PassengerPartitionDatas;
-  public PartitionData[] HolePartitionDatas;
+  public LevelHoleData[] LevelHoleDatas;
+  public GroupPassengerData[] GroupPassengerDatas;
   public float3 GridPosition;
   public int2 GridSize;
   public float2 GridScale;
+  public int2 HoleSize;
 }
 
 public class LevelEditor : MonoBehaviour

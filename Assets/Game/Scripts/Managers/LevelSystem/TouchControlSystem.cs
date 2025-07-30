@@ -7,6 +7,7 @@ public partial class LevelSystem : MonoBehaviour
   [Header("Touch Control System")]
   bool _isUserScreenTouching;
   public bool IsUserScreenTouching { get { return _isUserScreenTouching; } }
+  readonly RaycastHit[] results = new RaycastHit[10];
 
   void SubscribeTouchEvent()
   {
@@ -27,10 +28,12 @@ public partial class LevelSystem : MonoBehaviour
     _isUserScreenTouching = true;
 
     if (GameManager.Instance.GetGameState() != GameState.Gameplay) return;
-    Vector2 startTouchPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
-    // Collider2D[] colliders = Physics.OverlapSphereNonAlloc(startTouchPos);
+    Vector3 startTouchPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
 
-    print("finger " + finger);
+    var ray = new Ray(startTouchPos, Camera.main.transform.forward);
+    var hitCount = Physics.RaycastNonAlloc(ray, results);
+    if (hitCount == 0) return;
+    TouchControlling(FindObjIn<HoleTag>(results, hitCount));
   }
 
   void OnGesture(List<LeanFinger> list)
@@ -41,5 +44,18 @@ public partial class LevelSystem : MonoBehaviour
   private void OnFingerInactive(LeanFinger finger)
   {
     _isUserScreenTouching = false;
+  }
+
+  public Collider FindObjIn<T>(RaycastHit[] cols, int hitCount)
+  {
+    for (int i = 0; i < hitCount; ++i)
+    {
+      if (cols[i].collider == null) continue;
+      if (cols[i].collider.TryGetComponent<T>(out var comp))
+      {
+        return cols[i].collider;
+      }
+    }
+    return default;
   }
 }

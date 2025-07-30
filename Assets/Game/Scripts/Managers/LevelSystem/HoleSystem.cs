@@ -9,4 +9,9 @@ public partial class LevelSystem : MonoBehaviour
   {
     _holeTransforms = new Transform[holeGrid.GridSize.x * holeGrid.GridSize.y];
   }
+
+  void TouchControlling(Collider holeCollider)
+  {
+    print("holeCollider " + holeCollider);
+  }
 }

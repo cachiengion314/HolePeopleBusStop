@@ -2199,10 +2199,10 @@ MonoBehaviour:
     GroupPassengerDatas:
     - GridRangeX:
         x: 0
-        y: 3
+        y: 2
       GridRangeY:
         x: 0
-        y: 3
+        y: 2
       IsHidden: 0
       Value: 0
     - GridRangeX:
@@ -2291,7 +2291,8 @@ MonoBehaviour:
       x: 4
       y: 4
   levelSelected: 20
-  grid: {fileID: 1083012360}
+  passengerGrid: {fileID: 1083012360}
+  holeGrid: {fileID: 446431530}
 --- !u!1 &233351796
 GameObject:
   m_ObjectHideFlags: 0

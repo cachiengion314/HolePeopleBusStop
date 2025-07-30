@@ -12,8 +12,8 @@ public class InitHoleData
 [Serializable]
 public class GroupPassengerData
 {
-  public int2 GridRangeX;
-  public int2 GridRangeY;
+  [ViewOnly] public int2 GridRangeX;
+  [ViewOnly] public int2 GridRangeY;
   public bool IsHidden;
   public int Value;
 }
@@ -33,14 +33,88 @@ public class LevelInformation
 public class LevelEditor : MonoBehaviour
 {
   [Header("Level Editor")]
+  [SerializeField] PassengerEditorControl passengerEditorPref;
+  [SerializeField] HoleEditorControl holeEditorPref;
+  [SerializeField] PassengerEditorControl[] passengerEditorInstance;
+  [SerializeField] HoleEditorControl[] holeEditorInstance;
   [SerializeField] LevelInformation levelInformation;
   [SerializeField][Range(1, 20)] int levelSelected = 1;
-  [SerializeField] GridWorld grid;
+  [SerializeField] GridWorld passengerGrid;
+  [SerializeField] GridWorld holeGrid;
+
+  [NaughtyAttributes.Button]
+  void CreateGrid()
+  {
+    var gridSize = levelInformation.GridSize;
+    if (gridSize.x % 2 != 0 || gridSize.y % 2 != 0)
+    {
+      Debug.LogError("Grid size must be even numbers");
+      return;
+    }
+    ClearPassenger();
+    ClearHole();
+
+    var passengerGridSize = gridSize / 2;
+    passengerGrid.GridSize = passengerGridSize;
+    passengerGrid.GridScale = levelInformation.GridScale * 2;
+    passengerGrid.InitValue();
+
+    var holeScale = levelInformation.HoleScale;
+    var sizeUnitX = (int)math.floor(gridSize.x / holeScale.x);
+    var sizeUnitY = (int)math.floor(gridSize.y / holeScale.y);
+    var scaleUnitX = levelInformation.GridScale.x * holeScale.x;
+    var scaleUnitY = levelInformation.GridScale.y * holeScale.y;
+    holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
+    holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
+    holeGrid.InitValue();
+
+    passengerEditorInstance = new PassengerEditorControl[passengerGridSize.x * passengerGridSize.y];
+    for (int i = 0; i < passengerEditorInstance.Length; ++i)
+    {
+      var instance = Instantiate(passengerEditorPref, passengerGrid.transform);
+      var pos = passengerGrid.ConvertIndexToWorldPos(i);
+      var scale = passengerGrid.GridScale * 0.9f;
+      instance.transform.position = pos;
+      instance.transform.localScale = new Vector3(scale.x, scale.y, 1);
+      passengerEditorInstance[i] = instance;
+    }
+
+    holeEditorInstance = new HoleEditorControl[holeGrid.GridSize.x * holeGrid.GridSize.y];
+    for (int i = 0; i < holeEditorInstance.Length; ++i)
+    {
+      var instance = Instantiate(holeEditorPref, holeGrid.transform);
+      var pos = holeGrid.ConvertIndexToWorldPos(i);
+      var scale = holeGrid.GridScale * 0.9f;
+      instance.transform.position = pos;
+      instance.transform.localScale = new Vector3(scale.x, scale.y, 1);
+      holeEditorInstance[i] = instance;
+    }
+  }
 
   [NaughtyAttributes.Button]
   void Clear()
   {
     levelInformation = new LevelInformation();
+    ClearPassenger();
+    ClearHole();
+  }
+
+  void ClearPassenger()
+  {
+    for (int i = passengerGrid.transform.childCount -1; i >= 0; i--)
+    {
+      var child = passengerGrid.transform.GetChild(i);
+      DestroyImmediate(child.gameObject);
+    }
+  }
+
+  void ClearHole()
+  {
+    for (int i = holeGrid.transform.childCount -1; i >= 0; i--)
+    {
+      var child = holeGrid.transform.GetChild(i);
+      DestroyImmediate(child.gameObject);
+    }
   }
 
   [NaughtyAttributes.Button]
@@ -65,9 +139,6 @@ public class LevelEditor : MonoBehaviour
   void SaveLevel()
   {
     levelInformation.Index = levelSelected - 1;
-    levelInformation.GridPosition = grid.transform.position;
-    levelInformation.GridScale = grid.GridScale;
-    levelInformation.GridSize = grid.GridSize;
 
     HoangNam.SaveSystem.Save(
       levelInformation,

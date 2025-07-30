@@ -737,7 +737,6 @@ GameObject:
   - component: {fileID: 74468658}
   - component: {fileID: 74468657}
   - component: {fileID: 74468656}
-  - component: {fileID: 74468659}
   m_Layer: 5
   m_Name: Booster1
   m_TagString: Untagged
@@ -810,19 +809,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 74468657}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8204037914367808213}
-        m_TargetAssemblyTypeName: GameplayPanel, Assembly-CSharp
-        m_MethodName: OnTriggerBooster1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &74468657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,22 +848,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74468654}
   m_CullTransparentMesh: 1
---- !u!114 &74468659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74468654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbae7267a18948878c443508df6ebe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountBooster: {fileID: 1072490841}
-  UnlockBooster: {fileID: 1552855481}
-  LockBooster: {fileID: 1644168085}
-  EmptyBooster: {fileID: 1569871323}
 --- !u!1 &80722687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,8 +2120,6 @@ Transform:
   m_Children:
   - {fileID: 1083012359}
   - {fileID: 446431529}
-  - {fileID: 739440994}
-  - {fileID: 251753228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229877050
@@ -2220,17 +2189,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInformation:
     Index: 19
-    PassengerPartitionDatas:
-    - PercentInX:
-        x: 40
-        y: 80
-      PercentInY:
-        x: 40
-        y: 80
+    InitHoleDatas:
+    - Index: 1
+      Value: 0
+    GroupPassengerDatas:
+    - GridRangeX:
+        x: 2
+        y: 3
+      GridRangeY:
+        x: 0
+        y: 1
       IsHidden: 0
       Value: 0
-    HoleDatas:
-    - Index: 0
+    - GridRangeX:
+        x: 4
+        y: 5
+      GridRangeY:
+        x: 0
+        y: 1
+      IsHidden: 0
+      Value: 1
+    - GridRangeX:
+        x: 6
+        y: 7
+      GridRangeY:
+        x: 0
+        y: 1
+      IsHidden: 0
       Value: 0
     GridPosition:
       x: 0
@@ -2511,37 +2496,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247549931}
   m_CullTransparentMesh: 1
---- !u!1 &251753227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 251753228}
-  m_Layer: 0
-  m_Name: EndPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &251753228
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251753227}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.65, y: 0, z: -5.68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 229877049}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &255715110
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,7 +3789,6 @@ Transform:
   - {fileID: 600188920777714613}
   - {fileID: 5389424799780923535}
   - {fileID: 8626974649168062997}
-  - {fileID: 525466460}
   - {fileID: 1608169874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4608,7 +4561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 418391870}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &529377093
 GameObject:
@@ -6572,37 +6525,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726815638}
   m_CullTransparentMesh: 1
---- !u!1 &739440993
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 739440994}
-  m_Layer: 0
-  m_Name: StartPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &739440994
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739440993}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.66, y: 0, z: -4.28}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 229877049}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &742307421
 GameObject:
   m_ObjectHideFlags: 0
@@ -6979,7 +6901,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 19
+    OrthographicSize: 14
     NearClipPlane: 6.51
     FarClipPlane: 100
     Dutch: 0
@@ -7006,7 +6928,7 @@ Transform:
   m_GameObject: {fileID: 768285753}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4694715, y: -0, z: -0, w: 0.8829476}
-  m_LocalPosition: {x: 0, y: 20.07, z: -14.35}
+  m_LocalPosition: {x: 0, y: 19.2, z: -15.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7048,7 +6970,6 @@ GameObject:
   - component: {fileID: 783623877}
   - component: {fileID: 783623876}
   - component: {fileID: 783623875}
-  - component: {fileID: 783623878}
   m_Layer: 5
   m_Name: Booster2
   m_TagString: Untagged
@@ -7121,19 +7042,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 783623876}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8204037914367808213}
-        m_TargetAssemblyTypeName: GameplayPanel, Assembly-CSharp
-        m_MethodName: OnTriggerBooster2
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &783623876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7172,22 +7081,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783623873}
   m_CullTransparentMesh: 1
---- !u!114 &783623878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783623873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbae7267a18948878c443508df6ebe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountBooster: {fileID: 983479050}
-  UnlockBooster: {fileID: 1635573525}
-  LockBooster: {fileID: 1108086764}
-  EmptyBooster: {fileID: 407878786}
 --- !u!1 &784038125
 GameObject:
   m_ObjectHideFlags: 0
@@ -7224,7 +7117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -203, y: -184.69995}
+  m_AnchoredPosition: {x: -203, y: -184.6997}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &811259259
@@ -13541,7 +13434,6 @@ GameObject:
   - component: {fileID: 1439786214}
   - component: {fileID: 1439786213}
   - component: {fileID: 1439786212}
-  - component: {fileID: 1439786215}
   m_Layer: 5
   m_Name: Booster3
   m_TagString: Untagged
@@ -13614,19 +13506,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439786213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8204037914367808213}
-        m_TargetAssemblyTypeName: GameplayPanel, Assembly-CSharp
-        m_MethodName: OnTriggerBooster3
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1439786213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13665,22 +13545,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439786210}
   m_CullTransparentMesh: 1
---- !u!114 &1439786215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439786210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbae7267a18948878c443508df6ebe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountBooster: {fileID: 1595328181}
-  UnlockBooster: {fileID: 1016798876}
-  LockBooster: {fileID: 611662680}
-  EmptyBooster: {fileID: 1387563078}
 --- !u!1 &1440334818
 GameObject:
   m_ObjectHideFlags: 0
@@ -18670,7 +18534,7 @@ Transform:
   m_GameObject: {fileID: 3724687645286270431}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4694715, y: -0, z: -0, w: 0.8829476}
-  m_LocalPosition: {x: 0, y: 20.07, z: -14.35}
+  m_LocalPosition: {x: 0, y: 19.2, z: -15.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19406,7 +19270,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 19
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -20409,6 +20273,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1745455942}
   - {fileID: 418391870}
+  - {fileID: 525466460}
   - {fileID: 2208373389055128969}
   - {fileID: 1809531261}
   - {fileID: 663771092}

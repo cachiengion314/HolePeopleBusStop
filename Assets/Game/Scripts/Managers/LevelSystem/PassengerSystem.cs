@@ -3,10 +3,11 @@ using UnityEngine;
 public partial class LevelSystem : MonoBehaviour
 {
   [Header("Passengers System")]
-  GameObject[] _passengers;
+  Transform[] _passengerTransforms;
 
-  void InitPassengers()
+  void InitPassengerTransforms()
   {
-    _passengers = new GameObject[passengerGrid.GridSize.x * passengerGrid.GridSize.y];
+    _passengerTransforms
+      = new Transform[passengerGrid.GridSize.x * passengerGrid.GridSize.y];
   }
 }

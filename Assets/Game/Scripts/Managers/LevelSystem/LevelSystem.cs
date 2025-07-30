@@ -13,6 +13,10 @@ public partial class LevelSystem : MonoBehaviour
 
   void Start()
   {
+    if (Instance == null)
+      Instance = this;
+    else Destroy(gameObject);
+
     if (IsSelectedLevel)
     {
       GameManager.Instance.CurrentLevelIndex = levelSelected - 1;
@@ -33,19 +37,6 @@ public partial class LevelSystem : MonoBehaviour
     passengerGrid.DisposePathFinding();
   }
 
-  bool IsAtHoleTerritory(float3 passengerPos, LevelHoleData[] levelHoleDatas)
-  {
-    if (holeGrid.IsPosOutsideAt(passengerPos)) return false;
-    var index = holeGrid.ConvertWorldPosToIndex(passengerPos);
-    if (levelHoleDatas[index] == null) return false;
-    return true;
-  }
-
-  int ConvertPercentToIdx(float percentInt, int gridSize)
-  {
-    return (int)math.floor(percentInt / 100.0f * gridSize);
-  }
-
   void SetupCurrentLevel()
   {
     passengerGrid.transform.position = _levelInformation.GridPosition;
@@ -59,31 +50,76 @@ public partial class LevelSystem : MonoBehaviour
     var holeSize = _levelInformation.HoleSize;
     var sizeUnitX = (int)math.floor(_levelInformation.GridSize.x / holeSize.x);
     var sizeUnitY = (int)math.floor(_levelInformation.GridSize.y / holeSize.y);
-    var scaleUnitX = (int)math.floor(_levelInformation.GridScale.x * holeSize.x);
-    var scaleUnitY = (int)math.floor(_levelInformation.GridScale.y * holeSize.y);
+    var scaleUnitX = _levelInformation.GridScale.x * holeSize.x;
+    var scaleUnitY = _levelInformation.GridScale.y * holeSize.y;
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
-    holeGrid.GridScale = new int2(scaleUnitX, scaleUnitY);
+    holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();
 
-    InitPassengers();
-    InitHoles();
+    InitLevelDatas();
+    InitHoleTransform();
+    InitPassengerTransforms();
+
+    var initHoleDatas = _levelInformation.InitHoleDatas;
+    for (int i = 0; i < initHoleDatas.Length; ++i)
+    {
+      var index = initHoleDatas[i].Index;
+      var colorValue = initHoleDatas[i].Value;
+      var obj = SpawnHoleAt(index, spawnedParent);
+
+      _holeTransforms[index] = obj.transform;
+      ColorValueDatas.Add(
+        obj.GetInstanceID(),
+        new ColorValueData { ColorValue = colorValue }
+      );
+      var mesh = obj.GetComponentInChildren<MeshRenderer>();
+      MeshRendDatas.Add(
+        obj.GetInstanceID(),
+        new IMeshRendData { BodyRenderer = mesh }
+      );
+      if (obj.TryGetComponent<IColorValue>(out var colorComp))
+      {
+        colorComp.SetColorValue(colorValue);
+      }
+    }
 
     var groupPassengerDatas = _levelInformation.GroupPassengerDatas;
     for (int i = 0; i < groupPassengerDatas.Length; ++i)
     {
-      var index = groupPassengerDatas[i].Index;
-      var obj = SpawnPassengerAt(index, spawnedParent);
+      var colorValue = groupPassengerDatas[i].Value;
+      var gridRangeX = groupPassengerDatas[i].GridRangeX;
+      var gridRangeY = groupPassengerDatas[i].GridRangeY;
 
-      _passengers[index] = obj;
-    }
+      var startX = gridRangeX.x;
+      var endX = gridRangeX.y;
+      var startY = gridRangeY.x;
+      var endY = gridRangeY.y;
 
-    var levelHoleDatas = _levelInformation.LevelHoleDatas;
-    for (int i = 0; i < levelHoleDatas.Length; ++i)
-    {
-      var index = levelHoleDatas[i].Index;
-      var obj = SpawnHoleAt(index, spawnedParent);
+      for (int y = startY; y <= endY; ++y)
+      {
+        for (int x = startX; x <= endX; ++x)
+        {
+          var gridPos = new int2(x, y);
+          var index = passengerGrid.ConvertGridPosToIndex(gridPos);
+          var obj = SpawnPassengerAt(index, spawnedParent);
 
-      _holes[index] = obj;
+          _passengerTransforms[index] = obj;
+          ColorValueDatas.Add(
+            obj.GetInstanceID(),
+            new ColorValueData { ColorValue = colorValue }
+          );
+          var mesh = obj.GetComponentInChildren<Animator>()
+            .GetComponentInChildren<SkinnedMeshRenderer>();
+          SkinnedMeshRendDatas.Add(
+            obj.GetInstanceID(),
+            new ISkinnedMeshRendData { BodyRenderer = mesh }
+          );
+          if (obj.TryGetComponent<IColorValue>(out var colorComp))
+          {
+            colorComp.SetColorValue(colorValue);
+          }
+        }
+      }
     }
   }
 

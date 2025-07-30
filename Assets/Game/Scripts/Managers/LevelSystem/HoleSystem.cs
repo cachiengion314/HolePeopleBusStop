@@ -3,10 +3,10 @@ using UnityEngine;
 public partial class LevelSystem : MonoBehaviour
 {
   [Header("Hole System")]
-  GameObject[] _holes;
+  Transform[] _holeTransforms;
 
-  void InitHoles()
+  void InitHoleTransform()
   {
-    _holes = new GameObject[holeGrid.GridSize.x * holeGrid.GridSize.y];
+    _holeTransforms = new Transform[holeGrid.GridSize.x * holeGrid.GridSize.y];
   }
 }

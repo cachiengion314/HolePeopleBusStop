@@ -5,8 +5,4 @@ public class ThemeObj : ScriptableObject
 {
   [Header("Elements")]
   public Color[] colorValues;
-  public Sprite[] colorBlocks;
-  public Sprite[] directionBlockSprites;
-  public Sprite[] blastBlockSprites;
-  public Sprite[] tunnelSprites;
 }

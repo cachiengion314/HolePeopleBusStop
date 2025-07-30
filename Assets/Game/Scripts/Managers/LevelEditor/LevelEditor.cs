@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
-public class LevelHoleData
+public class InitHoleData
 {
   public int Index;
   public int Value;
@@ -12,7 +12,8 @@ public class LevelHoleData
 [Serializable]
 public class GroupPassengerData
 {
-  public int Index;
+  public int2 GridRangeX;
+  public int2 GridRangeY;
   public bool IsHidden;
   public int Value;
 }
@@ -21,7 +22,7 @@ public class GroupPassengerData
 public class LevelInformation
 {
   [ViewOnly] public int Index;
-  public LevelHoleData[] LevelHoleDatas;
+  public InitHoleData[] InitHoleDatas;
   public GroupPassengerData[] GroupPassengerDatas;
   public float3 GridPosition;
   public int2 GridSize;

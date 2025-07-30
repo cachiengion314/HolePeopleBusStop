@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public class PassengerTag : MonoBehaviour
+public class HoleTag : MonoBehaviour
   , IColorValue
-  , ISkinnedMeshRend
+  , IMeshRend
 {
-  public SkinnedMeshRenderer GetBodyRenderer()
+  public MeshRenderer GetBodyRenderer()
   {
-    return LevelSystem.SkinnedMeshRendDatas[transform.GetInstanceID()].BodyRenderer;
+    return LevelSystem.MeshRendDatas[transform.GetInstanceID()].BodyRenderer;
   }
 
-  public void SetBodyRenderer(SkinnedMeshRenderer value)
+  public void SetBodyRenderer(MeshRenderer value)
   {
     var instanceID = transform.GetInstanceID();
-    if (!LevelSystem.SkinnedMeshRendDatas.TryGetValue(instanceID, out var data)) return;
+    if (!LevelSystem.MeshRendDatas.TryGetValue(instanceID, out var data)) return;
 
     data.BodyRenderer = value;
-    LevelSystem.SkinnedMeshRendDatas[instanceID] = data;
+    LevelSystem.MeshRendDatas[instanceID] = data;
   }
 
   public int GetColorValue()
@@ -32,6 +32,6 @@ public class PassengerTag : MonoBehaviour
     LevelSystem.ColorValueDatas[instanceID] = data;
 
     var color = RendererSystem.Instance.GetColorBy(value);
-    GetBodyRenderer().material.SetColor("_BaseColor", color);
+    GetBodyRenderer().material.SetColor("_Color", color);
   }
 }

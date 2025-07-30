@@ -1,38 +1,46 @@
 {
     "Index": 19,
-    "PassengerPartitionDatas": [
+    "InitHoleDatas": [
         {
-            "PercentInX": {
-                "x": 0.0,
-                "y": 25.0
-            },
-            "PercentInY": {
-                "x": 0.0,
-                "y": 25.0
-            },
-            "IsHidden": false,
-            "Value": 0
-        },
-        {
-            "PercentInX": {
-                "x": 50.0,
-                "y": 75.0
-            },
-            "PercentInY": {
-                "x": 50.0,
-                "y": 75.0
-            },
-            "IsHidden": false,
+            "Index": 1,
             "Value": 0
         }
     ],
-    "HoleDatas": [
+    "GroupPassengerDatas": [
         {
-            "Index": 0,
+            "GridRangeX": {
+                "x": 2,
+                "y": 3
+            },
+            "GridRangeY": {
+                "x": 0,
+                "y": 1
+            },
+            "IsHidden": false,
             "Value": 0
         },
         {
-            "Index": 1,
+            "GridRangeX": {
+                "x": 4,
+                "y": 5
+            },
+            "GridRangeY": {
+                "x": 0,
+                "y": 1
+            },
+            "IsHidden": false,
+            "Value": 1
+        },
+        {
+            "GridRangeX": {
+                "x": 6,
+                "y": 7
+            },
+            "GridRangeY": {
+                "x": 0,
+                "y": 1
+            },
+            "IsHidden": false,
             "Value": 0
         }
     ],

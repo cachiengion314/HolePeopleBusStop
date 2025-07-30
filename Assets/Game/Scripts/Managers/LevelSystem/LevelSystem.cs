@@ -24,6 +24,8 @@ public partial class LevelSystem : MonoBehaviour
     }
     else LoadLevelFrom(GameManager.Instance.CurrentLevelIndex + 1);
 
+    GameManager.Instance.SetGameState(GameState.Gameplay);
+    SubscribeTouchEvent();
     SetupCurrentLevel();
   }
 
@@ -35,6 +37,7 @@ public partial class LevelSystem : MonoBehaviour
   void OnDestroy()
   {
     passengerGrid.DisposePathFinding();
+    UnsubscribeTouchEvent();
   }
 
   void SetupCurrentLevel()

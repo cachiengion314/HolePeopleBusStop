@@ -2,7 +2,6 @@ using Lean.Touch;
 using Unity.Entities;
 using UnityEngine;
 
-
 namespace AngryBlock
 {
   public partial class TouchControlSystem : SystemBase
@@ -10,12 +9,12 @@ namespace AngryBlock
     protected override void OnCreate()
     {
       RequireForUpdate<Spawner>();
-      LeanTouch.OnFingerDown += OnFingerDown;
+      // LeanTouch.OnFingerDown += OnFingerDown;
     }
 
     protected override void OnDestroy()
     {
-      LeanTouch.OnFingerDown -= OnFingerDown;
+      // LeanTouch.OnFingerDown -= OnFingerDown;
     }
 
     protected override void OnUpdate()

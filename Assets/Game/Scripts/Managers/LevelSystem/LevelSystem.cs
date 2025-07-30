@@ -47,11 +47,11 @@ public partial class LevelSystem : MonoBehaviour
     passengerGrid.InitValue();
     passengerGrid.BakingPathFinding();
 
-    var holeSize = _levelInformation.HoleSize;
-    var sizeUnitX = (int)math.floor(_levelInformation.GridSize.x / holeSize.x);
-    var sizeUnitY = (int)math.floor(_levelInformation.GridSize.y / holeSize.y);
-    var scaleUnitX = _levelInformation.GridScale.x * holeSize.x;
-    var scaleUnitY = _levelInformation.GridScale.y * holeSize.y;
+    var holeScale = _levelInformation.HoleScale;
+    var sizeUnitX = (int)math.floor(_levelInformation.GridSize.x / holeScale.x);
+    var sizeUnitY = (int)math.floor(_levelInformation.GridSize.y / holeScale.y);
+    var scaleUnitX = _levelInformation.GridScale.x * holeScale.x;
+    var scaleUnitY = _levelInformation.GridScale.y * holeScale.y;
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
     holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();

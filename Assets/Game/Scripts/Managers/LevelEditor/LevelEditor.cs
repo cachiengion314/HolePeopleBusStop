@@ -27,7 +27,7 @@ public class LevelInformation
   public float3 GridPosition;
   public int2 GridSize;
   public float2 GridScale;
-  public int2 HoleSize;
+  public int2 HoleScale;
 }
 
 public class LevelEditor : MonoBehaviour

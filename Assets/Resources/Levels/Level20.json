@@ -4,17 +4,25 @@
         {
             "Index": 1,
             "Value": 0
+        },
+        {
+            "Index": 6,
+            "Value": 1
+        },
+        {
+            "Index": 8,
+            "Value": 2
         }
     ],
     "GroupPassengerDatas": [
         {
             "GridRangeX": {
-                "x": 2,
+                "x": 0,
                 "y": 3
             },
             "GridRangeY": {
                 "x": 0,
-                "y": 1
+                "y": 3
             },
             "IsHidden": false,
             "Value": 0
@@ -29,7 +37,7 @@
                 "y": 1
             },
             "IsHidden": false,
-            "Value": 1
+            "Value": 2
         },
         {
             "GridRangeX": {
@@ -39,6 +47,90 @@
             "GridRangeY": {
                 "x": 0,
                 "y": 1
+            },
+            "IsHidden": false,
+            "Value": 1
+        },
+        {
+            "GridRangeX": {
+                "x": 4,
+                "y": 7
+            },
+            "GridRangeY": {
+                "x": 2,
+                "y": 7
+            },
+            "IsHidden": false,
+            "Value": 0
+        },
+        {
+            "GridRangeX": {
+                "x": 4,
+                "y": 7
+            },
+            "GridRangeY": {
+                "x": 8,
+                "y": 11
+            },
+            "IsHidden": false,
+            "Value": 2
+        },
+        {
+            "GridRangeX": {
+                "x": 0,
+                "y": 3
+            },
+            "GridRangeY": {
+                "x": 8,
+                "y": 11
+            },
+            "IsHidden": false,
+            "Value": 1
+        },
+        {
+            "GridRangeX": {
+                "x": 8,
+                "y": 9
+            },
+            "GridRangeY": {
+                "x": 4,
+                "y": 5
+            },
+            "IsHidden": false,
+            "Value": 0
+        },
+        {
+            "GridRangeX": {
+                "x": 8,
+                "y": 9
+            },
+            "GridRangeY": {
+                "x": 6,
+                "y": 7
+            },
+            "IsHidden": false,
+            "Value": 2
+        },
+        {
+            "GridRangeX": {
+                "x": 10,
+                "y": 11
+            },
+            "GridRangeY": {
+                "x": 4,
+                "y": 5
+            },
+            "IsHidden": false,
+            "Value": 1
+        },
+        {
+            "GridRangeX": {
+                "x": 10,
+                "y": 11
+            },
+            "GridRangeY": {
+                "x": 6,
+                "y": 7
             },
             "IsHidden": false,
             "Value": 0
@@ -51,13 +143,13 @@
     },
     "GridSize": {
         "x": 12,
-        "y": 24
+        "y": 12
     },
     "GridScale": {
         "x": 1.0,
         "y": 1.0
     },
-    "HoleSize": {
+    "HoleScale": {
         "x": 4,
         "y": 4
     }

@@ -2076,7 +2076,6 @@ GameObject:
   - component: {fileID: 229877049}
   - component: {fileID: 229877050}
   - component: {fileID: 229877048}
-  - component: {fileID: 229877051}
   m_Layer: 0
   m_Name: LevelSystem
   m_TagString: Untagged
@@ -2175,123 +2174,6 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!114 &229877051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229877047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac3dc02495844a799f3acbe628bad90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelInformation:
-    Index: 19
-    InitHoleDatas:
-    - Index: 1
-      Value: 0
-    - Index: 6
-      Value: 1
-    - Index: 8
-      Value: 2
-    GroupPassengerDatas:
-    - GridRangeX:
-        x: 0
-        y: 3
-      GridRangeY:
-        x: 0
-        y: 3
-      IsHidden: 0
-      Value: 0
-    - GridRangeX:
-        x: 4
-        y: 5
-      GridRangeY:
-        x: 0
-        y: 1
-      IsHidden: 0
-      Value: 2
-    - GridRangeX:
-        x: 6
-        y: 7
-      GridRangeY:
-        x: 0
-        y: 1
-      IsHidden: 0
-      Value: 1
-    - GridRangeX:
-        x: 4
-        y: 7
-      GridRangeY:
-        x: 2
-        y: 7
-      IsHidden: 0
-      Value: 0
-    - GridRangeX:
-        x: 4
-        y: 7
-      GridRangeY:
-        x: 8
-        y: 11
-      IsHidden: 0
-      Value: 2
-    - GridRangeX:
-        x: 0
-        y: 3
-      GridRangeY:
-        x: 8
-        y: 11
-      IsHidden: 0
-      Value: 1
-    - GridRangeX:
-        x: 8
-        y: 9
-      GridRangeY:
-        x: 4
-        y: 5
-      IsHidden: 0
-      Value: 0
-    - GridRangeX:
-        x: 8
-        y: 9
-      GridRangeY:
-        x: 6
-        y: 7
-      IsHidden: 0
-      Value: 2
-    - GridRangeX:
-        x: 10
-        y: 11
-      GridRangeY:
-        x: 4
-        y: 5
-      IsHidden: 0
-      Value: 1
-    - GridRangeX:
-        x: 10
-        y: 11
-      GridRangeY:
-        x: 6
-        y: 7
-      IsHidden: 0
-      Value: 0
-    GridPosition:
-      x: 0
-      y: 0
-      z: -3.5
-    GridSize:
-      x: 12
-      y: 12
-    GridScale:
-      x: 1
-      y: 1
-    HoleScale:
-      x: 4
-      y: 4
-  levelSelected: 20
-  grid: {fileID: 1083012360}
 --- !u!1 &233351796
 GameObject:
   m_ObjectHideFlags: 0
@@ -4015,11 +3897,11 @@ MonoBehaviour:
   colorIndex: 4
   degAroundX: -90
   gridSize:
-    x: 2
-    y: 8
-  gridScale:
     x: 3
     y: 3
+  gridScale:
+    x: 4
+    y: 4
 --- !u!1 &461049914
 GameObject:
   m_ObjectHideFlags: 0
@@ -9996,11 +9878,11 @@ MonoBehaviour:
   colorIndex: 3
   degAroundX: -90
   gridSize:
-    x: 12
-    y: 12
+    x: 6
+    y: 6
   gridScale:
-    x: 1
-    y: 1
+    x: 2
+    y: 2
 --- !u!1 &1108086764
 GameObject:
   m_ObjectHideFlags: 0

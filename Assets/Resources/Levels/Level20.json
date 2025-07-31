@@ -18,22 +18,22 @@
         {
             "GridRangeX": {
                 "x": 0,
-                "y": 3
+                "y": 0
             },
             "GridRangeY": {
                 "x": 0,
-                "y": 3
+                "y": 0
             },
             "IsHidden": false,
             "Value": 0
         },
         {
             "GridRangeX": {
-                "x": 4,
-                "y": 5
+                "x": 0,
+                "y": 0
             },
             "GridRangeY": {
-                "x": 0,
+                "x": 1,
                 "y": 1
             },
             "IsHidden": false,

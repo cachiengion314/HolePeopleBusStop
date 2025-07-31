@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public partial class LevelSystem : MonoBehaviour
@@ -12,6 +13,11 @@ public partial class LevelSystem : MonoBehaviour
 
   void TouchControlling(Collider holeCollider)
   {
-    print("holeCollider " + holeCollider);
+    if (passengerGrid.IsPosOutsideAt(holeCollider.transform.position)) return;
+    if (!holeCollider.TryGetComponent<IMeshRend>(out var meshRendComp)) return;
+    if (DOTween.IsTweening(meshRendComp.GetBodyRenderer().transform)) return;
+
+    meshRendComp.GetBodyRenderer().transform
+      .DOScale(1.3f, .15f).SetLoops(2, LoopType.Yoyo);
   }
 }

@@ -26,7 +26,7 @@ public partial class LevelSystem : MonoBehaviour
 
     GameManager.Instance.SetGameState(GameState.Gameplay);
     SubscribeTouchEvent();
-    SetupCurrentLevel();
+    SetupCurrentLevel(_levelInformation);
   }
 
   void Update()
@@ -40,30 +40,35 @@ public partial class LevelSystem : MonoBehaviour
     UnsubscribeTouchEvent();
   }
 
-  void SetupCurrentLevel()
+  void SetupCurrentLevel(LevelInformation levelInformation)
   {
-    passengerGrid.transform.position = _levelInformation.GridPosition;
-    holeGrid.transform.position = _levelInformation.GridPosition + new float3(0, .1f, 0);
+    passengerGrid.transform.position = levelInformation.GridPosition;
+    holeGrid.transform.position = levelInformation.GridPosition + new float3(0, .1f, 0);
 
-    passengerGrid.GridScale = _levelInformation.GridScale;
-    passengerGrid.GridSize = _levelInformation.GridSize;
+    passengerGrid.GridScale = levelInformation.GridScale;
+    passengerGrid.GridSize = levelInformation.GridSize;
     passengerGrid.InitValue();
     passengerGrid.BakingPathFinding();
 
-    var holeScale = _levelInformation.HoleScale;
-    var sizeUnitX = (int)math.floor(_levelInformation.GridSize.x / holeScale.x);
-    var sizeUnitY = (int)math.floor(_levelInformation.GridSize.y / holeScale.y);
-    var scaleUnitX = _levelInformation.GridScale.x * holeScale.x;
-    var scaleUnitY = _levelInformation.GridScale.y * holeScale.y;
+    var holeScale = levelInformation.HoleScale;
+    var sizeUnitX = (int)math.floor(levelInformation.GridSize.x / holeScale.x);
+    var sizeUnitY = (int)math.floor(levelInformation.GridSize.y / holeScale.y);
+    var scaleUnitX = levelInformation.GridScale.x * holeScale.x;
+    var scaleUnitY = levelInformation.GridScale.y * holeScale.y;
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
     holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();
 
-    InitLevelDatas();
     InitHoleTransform();
     InitPassengerTransforms();
+    InitEntitiesDataBuffers();
 
-    var initHoleDatas = _levelInformation.InitHoleDatas;
+    BakingEntityDatas(levelInformation);
+  }
+
+  void BakingEntityDatas(LevelInformation levelInformation)
+  {
+    var initHoleDatas = levelInformation.InitHoleDatas;
     for (int i = 0; i < initHoleDatas.Length; ++i)
     {
       var index = initHoleDatas[i].Index;
@@ -86,7 +91,7 @@ public partial class LevelSystem : MonoBehaviour
       }
     }
 
-    var groupPassengerDatas = _levelInformation.GroupPassengerDatas;
+    var groupPassengerDatas = levelInformation.GroupPassengerDatas;
     for (int i = 0; i < groupPassengerDatas.Length; ++i)
     {
       var colorValue = groupPassengerDatas[i].Value;
@@ -106,7 +111,10 @@ public partial class LevelSystem : MonoBehaviour
           var index = passengerGrid.ConvertGridPosToIndex(gridPos);
           var obj = SpawnPassengerAt(index, spawnedParent);
 
+          var radian = 180 * math.PI / 180f / 2f;
+          obj.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
           _passengerTransforms[index] = obj;
+
           ColorValueDatas.Add(
             obj.GetInstanceID(),
             new ColorValueData { ColorValue = colorValue }

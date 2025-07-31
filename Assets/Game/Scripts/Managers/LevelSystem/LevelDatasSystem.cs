@@ -13,7 +13,7 @@ public partial class LevelSystem : MonoBehaviour
     get; private set;
   }
 
-  void InitLevelDatas()
+  void InitEntitiesDataBuffers()
   {
     SkinnedMeshRendDatas = new();
     ColorValueDatas = new();

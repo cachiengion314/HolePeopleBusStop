@@ -2107,7 +2107,7 @@ MonoBehaviour:
     type: 3}
   holePref: {fileID: 2964797218227420734, guid: b0249e7f579744fa8be686212d95c23c,
     type: 3}
-  concreteBarrierPref: {fileID: 7548358237853260297, guid: 9f7104d79d7dd45a29d06cfee1d0c892,
+  concreteBarrierPref: {fileID: 5990264357349836868, guid: 22c560083d52e4c6e8c1d17ec7b94a15,
     type: 3}
   tunnelPref: {fileID: 2810109363155522986, guid: c401214766087403f90a59324fa1a1a4,
     type: 3}

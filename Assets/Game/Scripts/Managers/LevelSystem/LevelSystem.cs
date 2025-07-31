@@ -151,7 +151,7 @@ public partial class LevelSystem : MonoBehaviour
       if (obj1.TryGetComponent(out IDirection directionComp))
         directionComp.SetDirectionValue(data.direction);
 
-      List<GameObject> passengers = new();
+      List<Transform> passengers = new();
 
       var gridPos1 = obstacleGrid.ConvertIndexToGridPos(data.Index);
       var startX = gridPos1.x * 2;
@@ -165,27 +165,28 @@ public partial class LevelSystem : MonoBehaviour
         {
           var gridPos = new int2(x, y);
           var index = passengerGrid.ConvertGridPosToIndex(gridPos);
-          var obj = SpawnPassengerAt(index, spawnedParent);
+          var entity = SpawnPassengerAt(index, spawnedParent);
 
           var radian = 180 * math.PI / 180f / 2f;
-          obj.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
+          entity.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
 
           ColorValueDatas.Add(
-            obj.GetInstanceID(),
+            entity.GetInstanceID(),
             new ColorValueData { ColorValue = data.Value }
           );
-          var mesh = obj.GetComponentInChildren<Animator>()
+          var mesh = entity.GetComponentInChildren<Animator>()
             .GetComponentInChildren<SkinnedMeshRenderer>();
           SkinnedMeshRendDatas.Add(
-            obj.GetInstanceID(),
+            entity.GetInstanceID(),
             new ISkinnedMeshRendData { BodyRenderer = mesh }
           );
-          if (obj.TryGetComponent<IColorValue>(out var colorComp))
+          if (entity.TryGetComponent<IColorValue>(out var colorComp))
           {
+            
             colorComp.SetColorValue(data.Value);
           }
 
-          passengers.Add(obj.gameObject);
+          passengers.Add(entity);
         }
       }
 
@@ -198,7 +199,7 @@ public partial class LevelSystem : MonoBehaviour
       var pos = queueSlotsPosParent.GetChild(i).position;
       var obj = SpawnQueueSlotAt(pos, spawnedParent);
 
-      var colorValue = -1; // not set color yet
+      var colorValue = -1; // meaning not set any color yet
 
       ColorValueDatas.Add(
         obj.GetInstanceID(),
@@ -213,6 +214,24 @@ public partial class LevelSystem : MonoBehaviour
       {
         colorComp.SetColorValue(colorValue);
       }
+      if (obj.TryGetComponent<IPassengerList>(out var passengerList))
+      {
+        if (!PassengerListDatas.ContainsKey(obj.GetInstanceID()))
+          PassengerListDatas.Add(
+            obj.GetInstanceID(),
+            new PassengerListData
+            {
+              SlotPositions = new float3[4] {
+                (float3)pos,
+                (float3)pos + new float3(1f, 0f, 0f),
+                (float3)pos + new float3(0f, 0f, -1f),
+                (float3)pos + new float3(1f, 0f, -1f),
+              },
+              Passengers = new List<Transform>()
+            }
+          );
+      }
+      _queueSlotTransforms[i] = obj;
     }
   }
 

@@ -2,10 +2,11 @@ using UnityEngine;
 
 public struct PassengerArrayData
 {
-    public GameObject[] Passengers;
+  public Transform[] Passengers;
 }
+
 public interface IPassengerArray
 {
-    public GameObject[] GetPassengers();
-    public void SetPassengers(GameObject[] passengers);
+  public Transform[] GetPassengers();
+  public void SetPassengers(Transform[] passengers);
 }

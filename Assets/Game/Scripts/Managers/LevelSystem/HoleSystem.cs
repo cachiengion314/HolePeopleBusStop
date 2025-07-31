@@ -34,9 +34,13 @@ public partial class LevelSystem : MonoBehaviour
         .DOMove(targetPos, .5f)
         .OnComplete(() =>
         {
-          passenger.gameObject.SetActive(false);
           // fill passengers to queue slots
-          // var container = FindFirstSpareQueueSlot();
+          var queueSlot = FindFirstSpareQueueSlot();
+          if (!queueSlot.TryGetComponent<IPassengerList>(out var passengerList)) return;
+          passengerList.AddOnePassenger(passenger);
+          var pos = passengerList.GetSlotPositionAt(passengerList.GetPassengers().Count - 1);
+          if (pos.Equals(0)) return;
+          passenger.transform.position = pos;
         });
     }
   }

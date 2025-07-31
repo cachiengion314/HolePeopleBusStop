@@ -4,8 +4,8 @@ public partial class LevelSystem : MonoBehaviour
 {
   [SerializeField] Transform queueSlotsPosParent;
 
-  void FindFirstSpareQueueSlot()
+  Transform FindFirstSpareQueueSlot()
   {
-
+    return _queueSlotTransforms[0].transform;
   }
 }

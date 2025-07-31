@@ -13,7 +13,7 @@ public partial class LevelSystem : MonoBehaviour
       if (obj == null) continue;
       if (!obj.TryGetComponent<IColorValue>(out var colorComp)) continue;
       if (colorComp.GetColorValue() != colorValue) continue;
-      if (list.Count > holeConsumeCapacity) break;
+      if (list.Count == holeConsumeCapacity) break;
       list.Add(obj);
     }
     return list;

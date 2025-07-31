@@ -165,27 +165,28 @@ public partial class LevelSystem : MonoBehaviour
         {
           var gridPos = new int2(x, y);
           var index = passengerGrid.ConvertGridPosToIndex(gridPos);
-          var obj = SpawnPassengerAt(index, spawnedParent);
+          var entity = SpawnPassengerAt(index, spawnedParent);
 
           var radian = 180 * math.PI / 180f / 2f;
-          obj.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
+          entity.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
 
           ColorValueDatas.Add(
-            obj.GetInstanceID(),
+            entity.GetInstanceID(),
             new ColorValueData { ColorValue = data.Value }
           );
-          var mesh = obj.GetComponentInChildren<Animator>()
+          var mesh = entity.GetComponentInChildren<Animator>()
             .GetComponentInChildren<SkinnedMeshRenderer>();
           SkinnedMeshRendDatas.Add(
-            obj.GetInstanceID(),
+            entity.GetInstanceID(),
             new ISkinnedMeshRendData { BodyRenderer = mesh }
           );
-          if (obj.TryGetComponent<IColorValue>(out var colorComp))
+          if (entity.TryGetComponent<IColorValue>(out var colorComp))
           {
+            
             colorComp.SetColorValue(data.Value);
           }
 
-          passengers.Add(obj);
+          passengers.Add(entity);
         }
       }
 

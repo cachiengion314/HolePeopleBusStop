@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class RendererSystem : MonoBehaviour
@@ -25,7 +26,8 @@ public class RendererSystem : MonoBehaviour
   public Color GetColorBy(int colorValue)
   {
     var theme = GetCurrentTheme();
-    if (colorValue > theme.colorValues.Length - 1) return theme.colorValues[^1];
-    return theme.colorValues[colorValue];
+    var index = math.max(colorValue, 0);
+    if (index > theme.colorValues.Length - 1) return theme.colorValues[^1];
+    return theme.colorValues[index];
   }
 }

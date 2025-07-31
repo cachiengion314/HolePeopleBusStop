@@ -38,11 +38,7 @@ public partial class LevelSystem : MonoBehaviour
   void SetupCurrentLevel(LevelInformation levelInformation)
   {
     BakingGrids(levelInformation);
-
-    InitHoleTransform();
-    InitPassengerTransforms();
-    InitEntitiesDataBuffers();
-
+    InitEntitiesDataBuffers(levelInformation);
     BakingEntityDatas(levelInformation);
   }
 
@@ -130,6 +126,28 @@ public partial class LevelSystem : MonoBehaviour
             colorComp.SetColorValue(colorValue);
           }
         }
+      }
+    }
+
+    for (int i = 0; i < queueSlotsPosParent.childCount; ++i)
+    {
+      var pos = queueSlotsPosParent.GetChild(i).position;
+      var obj = SpawnQueueSlotAt(pos, spawnedParent);
+
+      var colorValue = -1; // not set color yet
+
+      ColorValueDatas.Add(
+        obj.GetInstanceID(),
+        new ColorValueData { ColorValue = colorValue }
+      );
+      var mesh = obj.GetComponentInChildren<MeshRenderer>();
+      MeshRendDatas.Add(
+        obj.GetInstanceID(),
+        new IMeshRendData { BodyRenderer = mesh }
+      );
+      if (obj.TryGetComponent<IColorValue>(out var colorComp))
+      {
+        colorComp.SetColorValue(colorValue);
       }
     }
   }

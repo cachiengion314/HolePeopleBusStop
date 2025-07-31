@@ -4,14 +4,8 @@ using UnityEngine;
 public partial class LevelSystem : MonoBehaviour
 {
   [Header("Hole System")]
-  Transform[] _holeTransforms;
   [Range(2, 64)]
   [SerializeField] int holeConsumeCapacity = 32;
-
-  void InitHoleTransform()
-  {
-    _holeTransforms = new Transform[holeGrid.GridSize.x * holeGrid.GridSize.y];
-  }
 
   void TouchControlling(Collider holeCollider)
   {
@@ -41,6 +35,8 @@ public partial class LevelSystem : MonoBehaviour
         .OnComplete(() =>
         {
           passenger.gameObject.SetActive(false);
+          // fill passengers to queue slots
+          // var container = FindFirstSpareQueueSlot();
         });
     }
   }

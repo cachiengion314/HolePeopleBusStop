@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HoleTag : MonoBehaviour
+public class QueueSlotTag : MonoBehaviour
   , IColorValue
   , IMeshRend
 {
@@ -32,6 +32,7 @@ public class HoleTag : MonoBehaviour
     LevelSystem.ColorValueDatas[instanceID] = data;
 
     var color = RendererSystem.Instance.GetColorBy(value);
+    if (value == -1) color = Color.white;
     GetBodyRenderer().material.SetColor("_Color", color);
   }
 }

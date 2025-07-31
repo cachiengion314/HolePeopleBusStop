@@ -3,15 +3,6 @@ using UnityEngine;
 
 public partial class LevelSystem : MonoBehaviour
 {
-  [Header("Passengers System")]
-  Transform[] _passengerTransforms;
-
-  void InitPassengerTransforms()
-  {
-    _passengerTransforms
-      = new Transform[passengerGrid.GridSize.x * passengerGrid.GridSize.y];
-  }
-
   List<Transform> FindPassengersMatching(int colorValue)
   {
     ///TODO: need more work at here in the future

@@ -63,8 +63,8 @@ public class LevelEditor : MonoBehaviour
     var holeScale = levelInformation.HoleScale;
     var sizeUnitX = (int)math.floor(gridSize.x / holeScale.x);
     var sizeUnitY = (int)math.floor(gridSize.y / holeScale.y);
-    var scaleUnitX = levelInformation.GridScale.x * holeScale.x;
-    var scaleUnitY = levelInformation.GridScale.y * holeScale.y;
+    var scaleUnitX = levelInformation.GridScale.x * holeScale.x / levelInformation.GridScale.x;
+    var scaleUnitY = levelInformation.GridScale.y * holeScale.y / levelInformation.GridScale.y;
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
     holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();
@@ -161,8 +161,8 @@ public class LevelEditor : MonoBehaviour
       var passengerData = levelInformation.GroupPassengerDatas[i];
       if (passengerData == null) continue;
       var index = passengerGrid.ConvertGridPosToIndex(
-        new int2(passengerData.GridRangeX.x /2,
-        passengerData.GridRangeY.x /2)
+        new int2(passengerData.GridRangeX.x / 2,
+        passengerData.GridRangeY.x / 2)
       );
       if (passengerEditorInstance[index] == null) continue;
       passengerEditorInstance[index].groupPassengerData = passengerData;

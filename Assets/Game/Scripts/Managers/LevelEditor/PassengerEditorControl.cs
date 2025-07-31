@@ -4,9 +4,9 @@ using UnityEngine;
 public class PassengerEditorControl : MonoBehaviour
 {
     [SerializeField] SpriteRenderer bodyRenderer;
-    [SerializeField] GroupPassengerData groupPassengerData;
-    [SerializeField] PassengerEditorControlType type;
-    void OnValidate()
+    public GroupPassengerData groupPassengerData;
+    public PassengerEditorControlType type;
+    public void OnValidate()
     {
         if (bodyRenderer == null) return;
         if (type == PassengerEditorControlType.None)

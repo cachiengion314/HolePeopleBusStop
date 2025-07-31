@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
 public class InitHoleData
 {
-  public int Index;
+  [ViewOnly] public int Index;
   public int Value;
 }
 
@@ -101,7 +102,7 @@ public class LevelEditor : MonoBehaviour
 
   void ClearPassenger()
   {
-    for (int i = passengerGrid.transform.childCount -1; i >= 0; i--)
+    for (int i = passengerGrid.transform.childCount - 1; i >= 0; i--)
     {
       var child = passengerGrid.transform.GetChild(i);
       DestroyImmediate(child.gameObject);
@@ -110,7 +111,7 @@ public class LevelEditor : MonoBehaviour
 
   void ClearHole()
   {
-    for (int i = holeGrid.transform.childCount -1; i >= 0; i--)
+    for (int i = holeGrid.transform.childCount - 1; i >= 0; i--)
     {
       var child = holeGrid.transform.GetChild(i);
       DestroyImmediate(child.gameObject);
@@ -132,18 +133,85 @@ public class LevelEditor : MonoBehaviour
 
     if (levelInfo == null) { print("This level is not existed!"); return; }
     levelInformation = levelInfo;
+    CreateGrid();
+    LoadHoleData();
+    LoadPassengerData();
     print("Load level successfully");
+  }
+
+  void LoadHoleData()
+  {
+    if (levelInformation.InitHoleDatas == null) return;
+    for (int i = 0; i < levelInformation.InitHoleDatas.Length; ++i)
+    {
+      var holeData = levelInformation.InitHoleDatas[i];
+      if (holeData == null) continue;
+      if (holeEditorInstance[holeData.Index] == null) continue;
+      holeEditorInstance[holeData.Index].initHoleData = holeData;
+      holeEditorInstance[holeData.Index].type = HoleEditorControlType.Hole;
+      holeEditorInstance[holeData.Index].OnValidate();
+    }
+  }
+
+  void LoadPassengerData()
+  {
+    if (levelInformation.GroupPassengerDatas == null) return;
+    for (int i = 0; i < levelInformation.GroupPassengerDatas.Length; ++i)
+    {
+      var passengerData = levelInformation.GroupPassengerDatas[i];
+      if (passengerData == null) continue;
+      var index = passengerGrid.ConvertGridPosToIndex(
+        new int2(passengerData.GridRangeX.x,
+        passengerData.GridRangeY.x)
+      );
+      if (passengerEditorInstance[index] == null) continue;
+      passengerEditorInstance[index].groupPassengerData = passengerData;
+      passengerEditorInstance[index].type = PassengerEditorControlType.Passenger;
+      passengerEditorInstance[index].OnValidate();
+    }
   }
 
   [NaughtyAttributes.Button]
   void SaveLevel()
   {
     levelInformation.Index = levelSelected - 1;
+    SaveHoldData();
+    SavePassengerData();
 
     HoangNam.SaveSystem.Save(
       levelInformation,
       "Resources/Levels/" + KeyString.NAME_LEVEL_FILE + levelSelected
     );
     print("Save level successfully");
+  }
+
+  void SaveHoldData()
+  {
+    List<InitHoleData> holeDatas = new();
+    for (int i = 0; i < holeEditorInstance.Length; ++i)
+    {
+      var holeEditor = holeEditorInstance[i];
+      if (holeEditor == null) continue;
+      if (holeEditor.type == HoleEditorControlType.None) continue;
+      holeEditor.initHoleData.Index = i;
+      holeDatas.Add(holeEditor.initHoleData);
+    }
+    levelInformation.InitHoleDatas = holeDatas.ToArray();
+  }
+
+  void SavePassengerData()
+  {
+    List<GroupPassengerData> groupPassengerDatas = new();
+    for (int i = 0; i < passengerEditorInstance.Length; ++i)
+    {
+      var passengerEditor = passengerEditorInstance[i];
+      if (passengerEditor == null) continue;
+      if (passengerEditor.type == PassengerEditorControlType.None) continue;
+      var gridPos = passengerGrid.ConvertIndexToGridPos(i);
+      passengerEditor.groupPassengerData.GridRangeX = new int2(gridPos.x, gridPos.x + 1);
+      passengerEditor.groupPassengerData.GridRangeY = new int2(gridPos.y, gridPos.y + 1);
+      groupPassengerDatas.Add(passengerEditor.groupPassengerData);
+    }
+    levelInformation.GroupPassengerDatas = groupPassengerDatas.ToArray();
   }
 }

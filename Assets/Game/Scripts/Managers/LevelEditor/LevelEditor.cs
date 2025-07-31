@@ -20,11 +20,19 @@ public class GroupPassengerData
 }
 
 [Serializable]
+public class ConcreteBarrierData
+{
+  [ViewOnly] public int2 GridRangeX;
+  [ViewOnly] public int2 GridRangeY;
+}
+
+[Serializable]
 public class LevelInformation
 {
   [ViewOnly] public int Index;
   public InitHoleData[] InitHoleDatas;
   public GroupPassengerData[] GroupPassengerDatas;
+  public ConcreteBarrierData[] ConcreteBarrierDatas;
   public float3 GridPosition;
   public int2 GridSize;
   public float2 GridScale;
@@ -136,6 +144,7 @@ public class LevelEditor : MonoBehaviour
     CreateGrid();
     LoadHoleData();
     LoadPassengerData();
+    LoadConcreteBarrierData();
     print("Load level successfully");
   }
 
@@ -161,12 +170,30 @@ public class LevelEditor : MonoBehaviour
       var passengerData = levelInformation.GroupPassengerDatas[i];
       if (passengerData == null) continue;
       var index = passengerGrid.ConvertGridPosToIndex(
-        new int2(passengerData.GridRangeX.x /2,
-        passengerData.GridRangeY.x /2)
+        new int2(passengerData.GridRangeX.x / 2,
+        passengerData.GridRangeY.x / 2)
       );
       if (passengerEditorInstance[index] == null) continue;
       passengerEditorInstance[index].groupPassengerData = passengerData;
       passengerEditorInstance[index].type = PassengerEditorControlType.Passenger;
+      passengerEditorInstance[index].OnValidate();
+    }
+  }
+
+  void LoadConcreteBarrierData()
+  {
+    if (levelInformation.ConcreteBarrierDatas == null) return;
+    for (int i = 0; i < levelInformation.ConcreteBarrierDatas.Length; ++i)
+    {
+      var concreteBarrierData = levelInformation.ConcreteBarrierDatas[i];
+      if (concreteBarrierData == null) continue;
+      var index = passengerGrid.ConvertGridPosToIndex(
+        new int2(concreteBarrierData.GridRangeX.x / 2,
+        concreteBarrierData.GridRangeY.x / 2)
+      );
+      if (passengerEditorInstance[index] == null) continue;
+      passengerEditorInstance[index].concreteBarrierData = concreteBarrierData;
+      passengerEditorInstance[index].type = PassengerEditorControlType.ConcreteBarrier;
       passengerEditorInstance[index].OnValidate();
     }
   }
@@ -177,6 +204,7 @@ public class LevelEditor : MonoBehaviour
     levelInformation.Index = levelSelected - 1;
     SaveHoldData();
     SavePassengerData();
+    SaveConcreteBarrierData();
 
     HoangNam.SaveSystem.Save(
       levelInformation,
@@ -192,7 +220,7 @@ public class LevelEditor : MonoBehaviour
     {
       var holeEditor = holeEditorInstance[i];
       if (holeEditor == null) continue;
-      if (holeEditor.type == HoleEditorControlType.None) continue;
+      if (holeEditor.type != HoleEditorControlType.Hole) continue;
       holeEditor.initHoleData.Index = i;
       holeDatas.Add(holeEditor.initHoleData);
     }
@@ -206,12 +234,28 @@ public class LevelEditor : MonoBehaviour
     {
       var passengerEditor = passengerEditorInstance[i];
       if (passengerEditor == null) continue;
-      if (passengerEditor.type == PassengerEditorControlType.None) continue;
+      if (passengerEditor.type != PassengerEditorControlType.Passenger) continue;
       var gridPos = passengerGrid.ConvertIndexToGridPos(i);
       passengerEditor.groupPassengerData.GridRangeX = new int2(gridPos.x * 2, gridPos.x * 2 + 1);
       passengerEditor.groupPassengerData.GridRangeY = new int2(gridPos.y * 2, gridPos.y * 2 + 1);
       groupPassengerDatas.Add(passengerEditor.groupPassengerData);
     }
     levelInformation.GroupPassengerDatas = groupPassengerDatas.ToArray();
+  }
+
+  void SaveConcreteBarrierData()
+  {
+    List<ConcreteBarrierData> concreteBarrierDatas = new();
+    for (int i = 0; i < passengerEditorInstance.Length; ++i)
+    {
+      var passengerEditor = passengerEditorInstance[i];
+      if (passengerEditor == null) continue;
+      if (passengerEditor.type != PassengerEditorControlType.ConcreteBarrier) continue;
+      var gridPos = passengerGrid.ConvertIndexToGridPos(i);
+      passengerEditor.concreteBarrierData.GridRangeX = new int2(gridPos.x * 2, gridPos.x * 2 + 1);
+      passengerEditor.concreteBarrierData.GridRangeY = new int2(gridPos.y * 2, gridPos.y * 2 + 1);
+      concreteBarrierDatas.Add(passengerEditor.concreteBarrierData);
+    }
+    levelInformation.ConcreteBarrierDatas = concreteBarrierDatas.ToArray();
   }
 }

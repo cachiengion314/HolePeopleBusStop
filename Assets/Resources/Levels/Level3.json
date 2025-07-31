@@ -212,6 +212,18 @@
             "Value": 3
         }
     ],
+    "ConcreteBarrierDatas": [
+        {
+            "GridRangeX": {
+                "x": 8,
+                "y": 9
+            },
+            "GridRangeY": {
+                "x": 2,
+                "y": 3
+            }
+        }
+    ],
     "GridPosition": {
         "x": 0.0,
         "y": 0.0,

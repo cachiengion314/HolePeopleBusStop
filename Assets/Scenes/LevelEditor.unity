@@ -175,6 +175,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &19947349
 SpriteRenderer:
@@ -395,6 +402,13 @@ MonoBehaviour:
       y: 5
     IsHidden: 0
     Value: 5
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &173191092
 SpriteRenderer:
@@ -508,6 +522,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &258523949
 SpriteRenderer:
@@ -621,6 +642,13 @@ MonoBehaviour:
       y: 7
     IsHidden: 0
     Value: 5
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &341466183
 SpriteRenderer:
@@ -734,6 +762,13 @@ MonoBehaviour:
       y: 3
     IsHidden: 0
     Value: 1
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &401557298
 SpriteRenderer:
@@ -847,7 +882,14 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
-  type: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 8
+      y: 9
+    GridRangeY:
+      x: 2
+      y: 3
+  type: 2
 --- !u!212 &445828604
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -894,7 +936,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -960,6 +1002,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &487006581
 SpriteRenderer:
@@ -1073,6 +1122,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &521823006
 SpriteRenderer:
@@ -1186,6 +1242,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &630781477
 SpriteRenderer:
@@ -1620,6 +1683,13 @@ MonoBehaviour:
       y: 5
     IsHidden: 0
     Value: 2
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &703846407
 SpriteRenderer:
@@ -1821,6 +1891,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &799091867
 SpriteRenderer:
@@ -2041,6 +2118,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &900481627
 SpriteRenderer:
@@ -2519,6 +2603,13 @@ MonoBehaviour:
       y: 7
     IsHidden: 0
     Value: 5
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &989925010
 SpriteRenderer:
@@ -2632,6 +2723,13 @@ MonoBehaviour:
       y: 11
     IsHidden: 0
     Value: 3
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &996416425
 SpriteRenderer:
@@ -2745,6 +2843,13 @@ MonoBehaviour:
       y: 5
     IsHidden: 0
     Value: 2
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1042806236
 SpriteRenderer:
@@ -2858,6 +2963,13 @@ MonoBehaviour:
       y: 3
     IsHidden: 0
     Value: 1
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1058314167
 SpriteRenderer:
@@ -2971,6 +3083,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1080113063
 SpriteRenderer:
@@ -3084,6 +3203,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1116073275
 SpriteRenderer:
@@ -3304,6 +3430,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1279027328
 SpriteRenderer:
@@ -3417,6 +3550,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1295304002
 SpriteRenderer:
@@ -3530,6 +3670,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1325340033
 SpriteRenderer:
@@ -3643,6 +3790,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1442895197
 SpriteRenderer:
@@ -3756,6 +3910,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1546133792
 SpriteRenderer:
@@ -3869,6 +4030,13 @@ MonoBehaviour:
       y: 1
     IsHidden: 0
     Value: 1
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1591195502
 SpriteRenderer:
@@ -3982,6 +4150,13 @@ MonoBehaviour:
       y: 9
     IsHidden: 0
     Value: 3
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1599102338
 SpriteRenderer:
@@ -4095,6 +4270,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1627652745
 SpriteRenderer:
@@ -4269,6 +4451,13 @@ MonoBehaviour:
       y: 9
     IsHidden: 0
     Value: 3
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1812799507
 SpriteRenderer:
@@ -4489,6 +4678,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1834289816
 SpriteRenderer:
@@ -4602,6 +4798,13 @@ MonoBehaviour:
       y: 1
     IsHidden: 0
     Value: 1
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1869496076
 SpriteRenderer:
@@ -4715,6 +4918,13 @@ MonoBehaviour:
       y: 7
     IsHidden: 0
     Value: 2
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1919504951
 SpriteRenderer:
@@ -4828,6 +5038,13 @@ MonoBehaviour:
       y: 11
     IsHidden: 0
     Value: 3
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &1935723285
 SpriteRenderer:
@@ -5105,6 +5322,13 @@ MonoBehaviour:
         y: 11
       IsHidden: 0
       Value: 3
+    ConcreteBarrierDatas:
+    - GridRangeX:
+        x: 8
+        y: 9
+      GridRangeY:
+        x: 2
+        y: 3
     GridPosition:
       x: 0
       y: 0
@@ -5192,6 +5416,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &1970585946
 SpriteRenderer:
@@ -5412,6 +5643,13 @@ MonoBehaviour:
       y: 7
     IsHidden: 0
     Value: 2
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &2053034084
 SpriteRenderer:
@@ -5525,6 +5763,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &2102509375
 SpriteRenderer:
@@ -5638,6 +5883,13 @@ MonoBehaviour:
       y: 0
     IsHidden: 0
     Value: 0
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 0
 --- !u!212 &2115544334
 SpriteRenderer:
@@ -5751,6 +6003,13 @@ MonoBehaviour:
       y: 5
     IsHidden: 0
     Value: 5
+  concreteBarrierData:
+    GridRangeX:
+      x: 0
+      y: 0
+    GridRangeY:
+      x: 0
+      y: 0
   type: 1
 --- !u!212 &2126883547
 SpriteRenderer:

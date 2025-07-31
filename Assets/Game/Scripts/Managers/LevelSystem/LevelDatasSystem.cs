@@ -13,10 +13,9 @@ public partial class LevelSystem : MonoBehaviour
   /// </summary>
   public static Dictionary<int, ColorValueData> ColorValueDatas { get; private set; }
   public static Dictionary<int, IMeshRendData> MeshRendDatas { get; private set; }
-  public static Dictionary<int, ISkinnedMeshRendData> SkinnedMeshRendDatas
-  {
-    get; private set;
-  }
+  public static Dictionary<int, ISkinnedMeshRendData> SkinnedMeshRendDatas { get; private set; }
+  public static Dictionary<int, DirectionValueData> DirectionValueDatas { get; private set; }
+  public static Dictionary<int, PassengerArrayData> PassengerArrayDatas { get; private set; }
 
   void InitEntitiesDataBuffers(LevelInformation levelInformation)
   {
@@ -28,5 +27,7 @@ public partial class LevelSystem : MonoBehaviour
     SkinnedMeshRendDatas = new();
     ColorValueDatas = new();
     MeshRendDatas = new();
+    DirectionValueDatas = new();
+    PassengerArrayDatas = new();
   }
 }

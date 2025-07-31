@@ -29,11 +29,6 @@ public partial class LevelSystem : MonoBehaviour
     SetupCurrentLevel(_levelInformation);
   }
 
-  void Update()
-  {
-
-  }
-
   void OnDestroy()
   {
     passengerGrid.DisposePathFinding();
@@ -41,6 +36,17 @@ public partial class LevelSystem : MonoBehaviour
   }
 
   void SetupCurrentLevel(LevelInformation levelInformation)
+  {
+    BakingGrids(levelInformation);
+
+    InitHoleTransform();
+    InitPassengerTransforms();
+    InitEntitiesDataBuffers();
+
+    BakingEntityDatas(levelInformation);
+  }
+
+  void BakingGrids(LevelInformation levelInformation)
   {
     passengerGrid.transform.position = levelInformation.GridPosition;
     holeGrid.transform.position = levelInformation.GridPosition + new float3(0, .1f, 0);
@@ -53,17 +59,11 @@ public partial class LevelSystem : MonoBehaviour
     var holeScale = levelInformation.HoleScale;
     var sizeUnitX = (int)math.floor(levelInformation.GridSize.x / holeScale.x);
     var sizeUnitY = (int)math.floor(levelInformation.GridSize.y / holeScale.y);
-    var scaleUnitX = levelInformation.GridScale.x * holeScale.x;
-    var scaleUnitY = levelInformation.GridScale.y * holeScale.y;
+    var scaleUnitX = levelInformation.GridScale.x * holeScale.x / levelInformation.GridScale.x;
+    var scaleUnitY = levelInformation.GridScale.y * holeScale.y / levelInformation.GridScale.y;
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
     holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();
-
-    InitHoleTransform();
-    InitPassengerTransforms();
-    InitEntitiesDataBuffers();
-
-    BakingEntityDatas(levelInformation);
   }
 
   void BakingEntityDatas(LevelInformation levelInformation)

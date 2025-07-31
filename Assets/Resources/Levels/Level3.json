@@ -6,10 +6,6 @@
             "Value": 2
         },
         {
-            "Index": 3,
-            "Value": 5
-        },
-        {
             "Index": 5,
             "Value": 3
         },
@@ -45,30 +41,6 @@
         },
         {
             "GridRangeX": {
-                "x": 0,
-                "y": 1
-            },
-            "GridRangeY": {
-                "x": 4,
-                "y": 5
-            },
-            "IsHidden": false,
-            "Value": 5
-        },
-        {
-            "GridRangeX": {
-                "x": 0,
-                "y": 1
-            },
-            "GridRangeY": {
-                "x": 6,
-                "y": 7
-            },
-            "IsHidden": false,
-            "Value": 5
-        },
-        {
-            "GridRangeX": {
                 "x": 2,
                 "y": 3
             },
@@ -90,30 +62,6 @@
             },
             "IsHidden": false,
             "Value": 1
-        },
-        {
-            "GridRangeX": {
-                "x": 2,
-                "y": 3
-            },
-            "GridRangeY": {
-                "x": 4,
-                "y": 5
-            },
-            "IsHidden": false,
-            "Value": 5
-        },
-        {
-            "GridRangeX": {
-                "x": 2,
-                "y": 3
-            },
-            "GridRangeY": {
-                "x": 6,
-                "y": 7
-            },
-            "IsHidden": false,
-            "Value": 5
         },
         {
             "GridRangeX": {
@@ -214,14 +162,20 @@
     ],
     "ConcreteBarrierDatas": [
         {
-            "GridRangeX": {
-                "x": 8,
-                "y": 9
+            "Index": 25
+        },
+        {
+            "Index": 30
+        }
+    ],
+    "TunnelDatas": [
+        {
+            "Index": 2,
+            "direction": {
+                "x": 0,
+                "y": 1
             },
-            "GridRangeY": {
-                "x": 2,
-                "y": 3
-            }
+            "Value": 2
         }
     ],
     "GridPosition": {

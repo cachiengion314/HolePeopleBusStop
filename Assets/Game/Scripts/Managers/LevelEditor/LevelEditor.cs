@@ -22,8 +22,14 @@ public class GroupPassengerData
 [Serializable]
 public class ConcreteBarrierData
 {
-  [ViewOnly] public int2 GridRangeX;
-  [ViewOnly] public int2 GridRangeY;
+  [ViewOnly] public int Index;
+}
+[Serializable]
+public class TunnelData
+{
+  [ViewOnly] public int Index;
+  public int2 direction;
+  public int Value;
 }
 
 [Serializable]
@@ -33,6 +39,7 @@ public class LevelInformation
   public InitHoleData[] InitHoleDatas;
   public GroupPassengerData[] GroupPassengerDatas;
   public ConcreteBarrierData[] ConcreteBarrierDatas;
+  public TunnelData[] TunnelDatas;
   public float3 GridPosition;
   public int2 GridSize;
   public float2 GridScale;
@@ -145,6 +152,7 @@ public class LevelEditor : MonoBehaviour
     LoadHoleData();
     LoadPassengerData();
     LoadConcreteBarrierData();
+    LoadTunnelData();
     print("Load level successfully");
   }
 
@@ -187,14 +195,24 @@ public class LevelEditor : MonoBehaviour
     {
       var concreteBarrierData = levelInformation.ConcreteBarrierDatas[i];
       if (concreteBarrierData == null) continue;
-      var index = passengerGrid.ConvertGridPosToIndex(
-        new int2(concreteBarrierData.GridRangeX.x / 2,
-        concreteBarrierData.GridRangeY.x / 2)
-      );
-      if (passengerEditorInstance[index] == null) continue;
-      passengerEditorInstance[index].concreteBarrierData = concreteBarrierData;
-      passengerEditorInstance[index].type = PassengerEditorControlType.ConcreteBarrier;
-      passengerEditorInstance[index].OnValidate();
+      if (passengerEditorInstance[concreteBarrierData.Index] == null) continue;
+      passengerEditorInstance[concreteBarrierData.Index].concreteBarrierData = concreteBarrierData;
+      passengerEditorInstance[concreteBarrierData.Index].type = PassengerEditorControlType.ConcreteBarrier;
+      passengerEditorInstance[concreteBarrierData.Index].OnValidate();
+    }
+  }
+
+  void LoadTunnelData()
+  {
+    if (levelInformation.TunnelDatas == null) return;
+    for (int i = 0; i < levelInformation.TunnelDatas.Length; ++i)
+    {
+      var tunnelData = levelInformation.TunnelDatas[i];
+      if (tunnelData == null) continue;
+      if (passengerEditorInstance[tunnelData.Index] == null) continue;
+      passengerEditorInstance[tunnelData.Index].tunnelData = tunnelData;
+      passengerEditorInstance[tunnelData.Index].type = PassengerEditorControlType.Tunnel;
+      passengerEditorInstance[tunnelData.Index].OnValidate();
     }
   }
 
@@ -205,6 +223,7 @@ public class LevelEditor : MonoBehaviour
     SaveHoldData();
     SavePassengerData();
     SaveConcreteBarrierData();
+    SaveTunnelData();
 
     HoangNam.SaveSystem.Save(
       levelInformation,
@@ -251,11 +270,23 @@ public class LevelEditor : MonoBehaviour
       var passengerEditor = passengerEditorInstance[i];
       if (passengerEditor == null) continue;
       if (passengerEditor.type != PassengerEditorControlType.ConcreteBarrier) continue;
-      var gridPos = passengerGrid.ConvertIndexToGridPos(i);
-      passengerEditor.concreteBarrierData.GridRangeX = new int2(gridPos.x * 2, gridPos.x * 2 + 1);
-      passengerEditor.concreteBarrierData.GridRangeY = new int2(gridPos.y * 2, gridPos.y * 2 + 1);
+      passengerEditor.concreteBarrierData.Index = i;
       concreteBarrierDatas.Add(passengerEditor.concreteBarrierData);
     }
     levelInformation.ConcreteBarrierDatas = concreteBarrierDatas.ToArray();
+  }
+
+  void SaveTunnelData()
+  {
+    List<TunnelData> tunnelDatas = new();
+    for (int i = 0; i < passengerEditorInstance.Length; ++i)
+    {
+      var passengerEditor = passengerEditorInstance[i];
+      if (passengerEditor == null) continue;
+      if (passengerEditor.type != PassengerEditorControlType.Tunnel) continue;
+      passengerEditor.tunnelData.Index = i;
+      tunnelDatas.Add(passengerEditor.tunnelData);
+    }
+    levelInformation.TunnelDatas = tunnelDatas.ToArray();
   }
 }

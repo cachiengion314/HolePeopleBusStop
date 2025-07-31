@@ -12,7 +12,7 @@ public class HoleEditorControl : MonoBehaviour
         if (type == HoleEditorControlType.None)
         {
             bodyRenderer.sortingOrder = 0;
-            bodyRenderer.color = Color.gray;
+            bodyRenderer.color = Color.beige;
         }
         else if (type == HoleEditorControlType.Hole)
         {

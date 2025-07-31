@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections.Generic;
 
 public partial class LevelSystem : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public partial class LevelSystem : MonoBehaviour
   public bool IsSelectedLevel;
   [SerializeField] GridWorld passengerGrid;
   [SerializeField] GridWorld holeGrid;
+  [SerializeField] GridWorld obstacleGrid;
 
   void Start()
   {
@@ -44,6 +46,7 @@ public partial class LevelSystem : MonoBehaviour
   {
     passengerGrid.transform.position = levelInformation.GridPosition;
     holeGrid.transform.position = levelInformation.GridPosition + new float3(0, .1f, 0);
+    obstacleGrid.transform.position = levelInformation.GridPosition + new float3(0, .2f, 0);
 
     passengerGrid.GridScale = levelInformation.GridScale;
     passengerGrid.GridSize = levelInformation.GridSize;
@@ -58,6 +61,10 @@ public partial class LevelSystem : MonoBehaviour
     holeGrid.GridSize = new int2(sizeUnitX, sizeUnitY);
     holeGrid.GridScale = new float2(scaleUnitX, scaleUnitY);
     holeGrid.InitValue();
+
+    obstacleGrid.GridScale = levelInformation.GridScale * 2;
+    obstacleGrid.GridSize = levelInformation.GridSize / 2;
+    obstacleGrid.InitValue();
 
     InitHoleTransform();
     InitPassengerTransforms();
@@ -131,6 +138,63 @@ public partial class LevelSystem : MonoBehaviour
           }
         }
       }
+    }
+
+    var initConcreteDatas = levelInformation.ConcreteBarrierDatas;
+    for (int i = 0; i < initConcreteDatas.Length; ++i)
+    {
+      var index = initConcreteDatas[i].Index;
+      var obj = SpawnConcreteBarrierAt(index, spawnedParent);
+    }
+
+    var initTunnelDatas = levelInformation.TunnelDatas;
+    for (int i = 0; i < initTunnelDatas.Length; ++i)
+    {
+      var data = initTunnelDatas[i];
+      var obj1 = SpawnTunnelAt(data.Index, data.direction, spawnedParent);
+      if (obj1.TryGetComponent(out IDirection directionComp))
+        directionComp.SetDirectionValue(data.direction);
+
+      List<GameObject> passengers = new();
+
+      var gridPos1 = obstacleGrid.ConvertIndexToGridPos(data.Index);
+      var startX = gridPos1.x * 2;
+      var endX = startX + 1;
+      var startY = gridPos1.y * 2;
+      var endY = startY + 1;
+
+      for (int y = startY; y <= endY; ++y)
+      {
+        for (int x = startX; x <= endX; ++x)
+        {
+          var gridPos = new int2(x, y);
+          var index = passengerGrid.ConvertGridPosToIndex(gridPos);
+          var obj = SpawnPassengerAt(index, spawnedParent);
+
+          var radian = 180 * math.PI / 180f / 2f;
+          obj.transform.rotation *= new Quaternion(0, math.sin(radian), 0, math.cos(radian));
+
+          ColorValueDatas.Add(
+            obj.GetInstanceID(),
+            new ColorValueData { ColorValue = data.Value }
+          );
+          var mesh = obj.GetComponentInChildren<Animator>()
+            .GetComponentInChildren<SkinnedMeshRenderer>();
+          SkinnedMeshRendDatas.Add(
+            obj.GetInstanceID(),
+            new ISkinnedMeshRendData { BodyRenderer = mesh }
+          );
+          if (obj.TryGetComponent<IColorValue>(out var colorComp))
+          {
+            colorComp.SetColorValue(data.Value);
+          }
+
+          passengers.Add(obj.gameObject);
+        }
+      }
+
+      if (obj1.TryGetComponent(out IPassengerArray passengerComp))
+        passengerComp.SetPassengers(passengers.ToArray());
     }
   }
 

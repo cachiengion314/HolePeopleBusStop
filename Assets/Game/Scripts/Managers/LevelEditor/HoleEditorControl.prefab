@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a43a2a803db4b2bbe10b21318c92b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  themeObj: {fileID: 11400000, guid: d081b41fc20d342d89fa72791fcfc66b, type: 2}
   bodyRenderer: {fileID: 8555680774346044457}
   initHoleData:
     Index: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HoleEditorControl : MonoBehaviour
 {
+    [SerializeField] ThemeObj themeObj;
     [SerializeField] SpriteRenderer bodyRenderer;
     public InitHoleData initHoleData;
     public HoleEditorControlType type;
@@ -16,7 +17,7 @@ public class HoleEditorControl : MonoBehaviour
         else if (type == HoleEditorControlType.Hole)
         {
             bodyRenderer.sortingOrder = 2;
-            bodyRenderer.color = Color.red;
+            bodyRenderer.color = themeObj.colorValues[initHoleData.Value];
         }
     }
 }

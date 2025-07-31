@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PassengerEditorControl : MonoBehaviour
 {
+    [SerializeField] ThemeObj themeObj;
     [SerializeField] SpriteRenderer bodyRenderer;
     public GroupPassengerData groupPassengerData;
     public PassengerEditorControlType type;
@@ -12,7 +13,7 @@ public class PassengerEditorControl : MonoBehaviour
         if (type == PassengerEditorControlType.None)
             bodyRenderer.color = Color.white;
         else if (type == PassengerEditorControlType.Passenger)
-            bodyRenderer.color = Color.green;
+            bodyRenderer.color = themeObj.colorValues[groupPassengerData.Value];
     }
 }
 

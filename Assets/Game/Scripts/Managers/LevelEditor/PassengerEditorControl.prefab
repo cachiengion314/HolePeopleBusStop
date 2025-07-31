@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f9f63682e1341c491abf175e1e0a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  themeObj: {fileID: 11400000, guid: d081b41fc20d342d89fa72791fcfc66b, type: 2}
   bodyRenderer: {fileID: 4834209682759628819}
   groupPassengerData:
     GridRangeX:

@@ -161,8 +161,8 @@ public class LevelEditor : MonoBehaviour
       var passengerData = levelInformation.GroupPassengerDatas[i];
       if (passengerData == null) continue;
       var index = passengerGrid.ConvertGridPosToIndex(
-        new int2(passengerData.GridRangeX.x,
-        passengerData.GridRangeY.x)
+        new int2(passengerData.GridRangeX.x /2,
+        passengerData.GridRangeY.x /2)
       );
       if (passengerEditorInstance[index] == null) continue;
       passengerEditorInstance[index].groupPassengerData = passengerData;
@@ -208,8 +208,8 @@ public class LevelEditor : MonoBehaviour
       if (passengerEditor == null) continue;
       if (passengerEditor.type == PassengerEditorControlType.None) continue;
       var gridPos = passengerGrid.ConvertIndexToGridPos(i);
-      passengerEditor.groupPassengerData.GridRangeX = new int2(gridPos.x, gridPos.x + 1);
-      passengerEditor.groupPassengerData.GridRangeY = new int2(gridPos.y, gridPos.y + 1);
+      passengerEditor.groupPassengerData.GridRangeX = new int2(gridPos.x * 2, gridPos.x * 2 + 1);
+      passengerEditor.groupPassengerData.GridRangeY = new int2(gridPos.y * 2, gridPos.y * 2 + 1);
       groupPassengerDatas.Add(passengerEditor.groupPassengerData);
     }
     levelInformation.GroupPassengerDatas = groupPassengerDatas.ToArray();

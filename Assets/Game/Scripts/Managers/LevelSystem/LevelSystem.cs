@@ -151,7 +151,7 @@ public partial class LevelSystem : MonoBehaviour
       if (obj1.TryGetComponent(out IDirection directionComp))
         directionComp.SetDirectionValue(data.direction);
 
-      List<GameObject> passengers = new();
+      List<Transform> passengers = new();
 
       var gridPos1 = obstacleGrid.ConvertIndexToGridPos(data.Index);
       var startX = gridPos1.x * 2;
@@ -185,7 +185,7 @@ public partial class LevelSystem : MonoBehaviour
             colorComp.SetColorValue(data.Value);
           }
 
-          passengers.Add(obj.gameObject);
+          passengers.Add(obj);
         }
       }
 
@@ -198,7 +198,7 @@ public partial class LevelSystem : MonoBehaviour
       var pos = queueSlotsPosParent.GetChild(i).position;
       var obj = SpawnQueueSlotAt(pos, spawnedParent);
 
-      var colorValue = -1; // not set color yet
+      var colorValue = -1; // meaning not set any color yet
 
       ColorValueDatas.Add(
         obj.GetInstanceID(),
@@ -213,6 +213,24 @@ public partial class LevelSystem : MonoBehaviour
       {
         colorComp.SetColorValue(colorValue);
       }
+      if (obj.TryGetComponent<IPassengerList>(out var passengerList))
+      {
+        if (!PassengerListDatas.ContainsKey(obj.GetInstanceID()))
+          PassengerListDatas.Add(
+            obj.GetInstanceID(),
+            new PassengerListData
+            {
+              SlotPositions = new float3[4] {
+                (float3)pos,
+                (float3)pos + new float3(1f, 0f, 0f),
+                (float3)pos + new float3(0f, 0f, -1f),
+                (float3)pos + new float3(1f, 0f, -1f),
+              },
+              Passengers = new List<Transform>()
+            }
+          );
+      }
+      _queueSlotTransforms[i] = obj;
     }
   }
 

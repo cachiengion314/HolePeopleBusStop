@@ -8,6 +8,7 @@ public partial class LevelSystem : MonoBehaviour
   /// </summary>
   Transform[] _holeTransforms;
   Transform[] _passengerTransforms;
+  Transform[] _queueSlotTransforms;
   /// <summary>
   /// static dictionaries for a better structure of datas
   /// </summary>
@@ -16,9 +17,11 @@ public partial class LevelSystem : MonoBehaviour
   public static Dictionary<int, ISkinnedMeshRendData> SkinnedMeshRendDatas { get; private set; }
   public static Dictionary<int, DirectionValueData> DirectionValueDatas { get; private set; }
   public static Dictionary<int, PassengerArrayData> PassengerArrayDatas { get; private set; }
+  public static Dictionary<int, PassengerListData> PassengerListDatas { get; private set; }
 
   void InitEntitiesDataBuffers(LevelInformation levelInformation)
   {
+    _queueSlotTransforms = new Transform[queueSlotsPosParent.childCount];
     _holeTransforms = new Transform[
       holeGrid.GridSize.x * holeGrid.GridSize.y
     ];
@@ -29,5 +32,6 @@ public partial class LevelSystem : MonoBehaviour
     MeshRendDatas = new();
     DirectionValueDatas = new();
     PassengerArrayDatas = new();
+    PassengerListDatas = new();
   }
 }
